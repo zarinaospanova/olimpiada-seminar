@@ -1,0 +1,922 @@
+<!doctype html><html lang="kk"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Лексика: олимпиадаға дайындық</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=PT+Sans:ital,wght@0,400;0,700;1,400&family=PT+Mono&display=swap">
+<style>
+/* Layout: оқулық тарауы (лексика), фон қанық жасыл; бұрынғы фонетика бетінің жалғасы. — ашық жасыл парақ, әр § ішінде: анықтама → ерекшелік → есте сақта → тапсырмалар. Дауысты = қызғылт сары, дауыссыз = көк. */
+:root{
+  --bg:#C4E5CC; --bg2:#B2DABD; --surface:#FFFFFF; --ink:#0F2A1C; --muted:#4A6855; --line:#A8D3B4;
+  --green:#1B7A4A; --green-deep:#0E4A2D; --vowel:#C0461B; --vowel-soft:#FBE3D8; --cons:#1F5BA8; --cons-soft:#DCE8F7;
+  --note:#FFF3BF; --note-line:#E3C64C; --ok:#1B7A4A; --ok-soft:#D4EFDD; --bad:#BD3326; --bad-soft:#F8DCD8;
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --body:"PT Sans","Segoe UI",Arial,sans-serif;
+  --mono:"PT Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6}
+.wrap{max-width:68rem;margin:0 auto;padding-inline:1.1rem;padding-block:0 4rem}
+h1,h2,h3,h4{font-family:var(--display);text-wrap:balance;line-height:1.2;margin:0}
+h2{font-size:clamp(1.4rem,3.4vw,2rem);font-weight:700}
+h3{font-size:1.05rem;font-weight:500}
+h4{font-size:.92rem;font-weight:500}
+p{margin:0}
+.lbl{font-family:var(--mono);font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.tr{font-family:var(--mono);color:var(--green-deep);white-space:nowrap}
+.v{color:var(--vowel);font-weight:700}
+.c{color:var(--cons);font-weight:700}
+.hl{background:var(--vowel-soft);color:var(--vowel);font-weight:700;border-radius:3px;padding:0 .1em}
+.st{text-decoration:underline;text-decoration-color:var(--green);text-decoration-thickness:3px;text-underline-offset:4px;font-weight:700}
+.small{font-size:.95rem;color:var(--muted)}
+:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--green-deep)}
+nav.top ul{list-style:none;margin:0 auto;max-width:68rem;padding:.55rem 1.1rem;display:flex;gap:1rem;overflow-x:auto;scrollbar-width:none}
+nav.top a{font-family:var(--mono);font-size:.82rem;color:#D6F0DE;text-decoration:none;white-space:nowrap}
+nav.top a:hover{color:#FFFFFF}
+
+.hero{padding-block:2.6rem 2.2rem;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:2rem;align-items:center}
+.hero h1{font-size:clamp(2.2rem,7vw,4.2rem);font-weight:700;color:var(--green-deep);letter-spacing:-.01em}
+.hero .sub{font-size:1.15rem;max-width:34rem;color:var(--muted)}
+.hero .intro{display:grid;gap:1rem}
+.topics{display:flex;flex-wrap:wrap;gap:.4rem}
+.topics a{font-size:.88rem;padding:.25rem .65rem;border-radius:99px;background:var(--surface);border:1px solid var(--line);color:var(--ink);text-decoration:none}
+.topics a:hover{border-color:var(--green)}
+.word{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.4rem 1.2rem;display:grid;gap:1rem;justify-items:center}
+.word .big{font-family:var(--display);font-size:clamp(1.5rem,4.6vw,2.4rem);font-weight:700;display:flex;gap:.2em;flex-wrap:wrap;justify-content:center}
+.word .big .syl{padding-bottom:.25rem;border-bottom:4px solid transparent}
+.word .big .syl.stress{border-bottom-color:var(--green)}
+.word .big .dot{color:var(--line)}
+.word .facts{display:grid;grid-template-columns:repeat(3,auto);gap:.3rem 1.2rem;font-size:.9rem}
+.word .facts b{font-family:var(--mono);font-size:1.05rem}
+.legend{display:flex;flex-wrap:wrap;gap:.4rem 1rem;font-size:.85rem;color:var(--muted)}
+.legend span::before{content:"";display:inline-block;width:.7rem;height:.7rem;border-radius:2px;margin-right:.35rem;vertical-align:-1px}
+.legend .lv::before{background:var(--vowel)} .legend .lc::before{background:var(--cons)} .legend .ls::before{background:var(--green);height:.2rem;vertical-align:2px}
+
+section.ch{padding-block:3rem 0;display:grid;gap:1.4rem;scroll-margin-top:3rem}
+.ch-head{display:flex;align-items:baseline;gap:.9rem;border-bottom:3px solid var(--green-deep);padding-bottom:.6rem}
+.ch-head .num{font-family:var(--display);font-weight:700;font-size:1rem;color:var(--surface);background:var(--green);border-radius:6px;padding:.2rem .55rem;flex:none}
+.def{background:var(--surface);border-left:5px solid var(--green);border-radius:0 8px 8px 0;padding:1rem 1.2rem;display:grid;gap:.5rem;max-width:56rem}
+.def p{font-size:1.06rem}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:1.2rem}
+.two > *{min-width:0}
+.block{display:grid;gap:.6rem;align-content:start}
+.sub-h{font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--green-deep);padding-top:.6rem}
+ul.list,ol.list{margin:0;padding-left:1.15rem;display:grid;gap:.4rem}
+ul.list li::marker{color:var(--green)}
+ol.rules{margin:0;padding:0;list-style:none;display:grid;gap:.6rem;counter-reset:r}
+ol.rules > li{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.75rem 1rem .75rem 3rem;position:relative;counter-increment:r}
+ol.rules > li::before{content:counter(r);position:absolute;left:.8rem;top:.75rem;font-family:var(--display);font-weight:700;font-size:.85rem;width:1.5rem;height:1.5rem;border-radius:50%;background:var(--green);color:#FFFFFF;display:grid;place-items:center}
+ol.rules .ex{display:block;margin-top:.25rem;font-size:.97rem;color:var(--muted)}
+.remember{background:var(--note);border:1px solid var(--note-line);border-radius:8px;padding:1rem 1.2rem;display:grid;gap:.5rem}
+.remember h4{display:flex;align-items:center;gap:.5rem}
+.remember h4::before{content:"!";display:grid;place-items:center;width:1.4rem;height:1.4rem;border-radius:50%;background:var(--ink);color:var(--note);font-size:.8rem;flex:none}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:.95rem;min-width:30rem}
+.tbl.narrow table{min-width:0}
+th,td{text-align:left;padding:.5rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--mono);font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:400;background:var(--bg2)}
+td.m{font-family:var(--mono)}
+.cards3{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.8rem}
+.mini{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.8rem 1rem;display:grid;gap:.35rem;align-content:start;min-width:0}
+.mini .words{font-size:.97rem}
+.chips{display:flex;flex-wrap:wrap;gap:.35rem}
+.chip{font-family:var(--mono);font-size:.88rem;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:.2rem .55rem}
+.chip b{color:var(--vowel)}
+
+.matrix{display:grid;grid-template-columns:auto repeat(4,minmax(0,1fr));gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.6rem;font-size:.85rem}
+.matrix .h{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);text-align:center;padding:.3rem .2rem;line-height:1.3}
+.matrix .r{font-family:var(--mono);font-size:.72rem;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;padding-right:.4rem}
+.matrix .cell{background:var(--vowel-soft);border-radius:6px;display:flex;align-items:center;justify-content:center;gap:.5rem;font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--vowel);padding:.55rem 0;flex-wrap:wrap}
+.matrix .cell small{font-size:.8rem;opacity:.75}
+.tiles{display:flex;flex-wrap:wrap;gap:.35rem}
+.tile{font-family:var(--display);font-weight:700;font-size:1.15rem;width:2.4rem;height:2.4rem;display:grid;place-items:center;border-radius:6px;background:var(--cons-soft);color:var(--cons)}
+.tile.vw{background:var(--vowel-soft);color:var(--vowel)}
+.cgroups{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem}
+.cgroup{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:1rem;display:grid;gap:.6rem;align-content:start}
+.cgroup p{font-size:.95rem;color:var(--muted)}
+.pairs{display:flex;flex-wrap:wrap;gap:.5rem}
+.pairs span{font-family:var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:.25rem .6rem}
+.sylrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:.7rem}
+.sylcard{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.8rem 1rem;display:grid;gap:.3rem;align-content:start;min-width:0}
+.sylcard .ex{font-family:var(--mono);font-size:1rem}
+.formula{font-family:var(--mono);font-size:.9rem;background:var(--bg2);border-radius:4px;padding:.15rem .45rem;justify-self:start}
+
+.tasks{display:grid;gap:1rem}
+.tasks > h3{color:var(--green-deep)}
+.task{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem;display:grid;gap:.8rem;min-width:0}
+.t-head{display:grid;gap:.3rem}
+.t-type{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--green)}
+.t-q{font-weight:700}
+.btn{font:inherit;font-size:.95rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:6px;padding:.4rem .75rem;cursor:pointer;text-align:left}
+.btn:hover{border-color:var(--green)}
+.btn.primary{background:var(--green);color:#FFFFFF;border-color:var(--green)}
+.btn.primary:hover{background:var(--green-deep)}
+.btn.ghost{background:transparent}
+.btn.sel{background:var(--green-deep);color:#FFFFFF;border-color:var(--green-deep)}
+.btn.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ink)}
+.btn.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--ink)}
+.btn[disabled]{cursor:default}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.45rem}
+.why{font-size:.95rem;border-left:3px solid var(--green);padding-left:.7rem}
+.actions{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.res{font-family:var(--mono);font-size:.88rem}
+.res.good{color:var(--ok)} .res.warn{color:var(--bad)}
+.srow{display:grid;grid-template-columns:minmax(6rem,11rem) 1fr;gap:.6rem;align-items:center;padding:.35rem 0;border-bottom:1px dashed var(--line)}
+.srow:last-child{border-bottom:0}
+.srow .item{font-family:var(--mono);font-size:1.02rem}
+.srow .item.okm::after{content:" ✓";color:var(--ok)}
+.srow .item.badm::after{content:" ✗";color:var(--bad)}
+.srow .choices{display:flex;flex-wrap:wrap;gap:.35rem}
+.srow .choices .btn{padding:.25rem .6rem;font-size:.88rem}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:.5rem 1rem}
+.match .col{display:grid;gap:.4rem;align-content:start;min-width:0}
+.match .btn{width:100%}
+.match .btn .n{font-family:var(--mono);font-size:.75rem;margin-right:.35rem;color:var(--green)}
+.irow{display:grid;grid-template-columns:minmax(7rem,12rem) 1fr auto;gap:.6rem;align-items:center;padding:.3rem 0}
+.irow .p{font-family:var(--mono);font-size:1rem}
+.irow input{font:inherit;font-family:var(--mono);border:1px solid var(--line);border-radius:6px;padding:.35rem .6rem;min-width:0;width:100%;background:var(--surface);color:var(--ink)}
+.irow input.ok{border-color:var(--ok);background:var(--ok-soft)}
+.irow input.bad{border-color:var(--bad);background:var(--bad-soft)}
+.irow .fix{font-family:var(--mono);font-size:.85rem;color:var(--muted);min-width:6rem}
+.wrow{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem;padding:.4rem 0;border-bottom:1px dashed var(--line)}
+.wrow:last-child{border-bottom:0}
+.wrow .sy{display:flex;gap:.25rem;flex-wrap:wrap}
+.wrow .sy .btn{font-family:var(--display);font-size:1rem;padding:.3rem .55rem}
+.wrow .note{font-size:.9rem;color:var(--muted);flex-basis:100%}
+.wrow .tag{font-size:.85rem;color:var(--muted);min-width:7rem}
+details.open{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem}
+details.open summary{cursor:pointer;font-weight:700;list-style:none;display:grid;gap:.3rem}
+details.open summary::-webkit-details-marker{display:none}
+details.open summary .t-type::after{content:" · жауабын көру үшін басыңыз";text-transform:none;letter-spacing:0;color:var(--muted)}
+details.open[open] summary{margin-bottom:.7rem}
+details.open .ans{border-left:3px solid var(--green);padding-left:.8rem;display:grid;gap:.4rem;font-size:.97rem}
+
+.anal{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.anal header{background:var(--green-deep);color:#FFFFFF;padding:.8rem 1.1rem;display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:baseline}
+.anal header h3{font-size:1.3rem}
+.anal header span{font-family:var(--mono);font-size:.9rem;color:#BFE6CB}
+.anal ol{margin:0;padding:1rem 1.1rem 1rem 2.4rem;display:grid;gap:.45rem}
+.anal li::marker{font-family:var(--mono);color:var(--green)}
+
+.qbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 2.6rem);z-index:5;background:var(--surface);padding:.5rem 0;display:flex;align-items:center;gap:1rem}
+.meter{flex:1;height:.6rem;background:var(--bg2);border-radius:99px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:var(--green);transition:width .3s}
+.qitem{display:grid;gap:.6rem;padding:.9rem 0;border-bottom:1px solid var(--line)}
+.qitem:last-of-type{border-bottom:0}
+
+footer{margin-top:4rem;padding-top:1rem;border-top:3px solid var(--green-deep);display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem;color:var(--muted);font-size:.9rem}
+
+@media (max-width:44rem){
+  .hero{grid-template-columns:1fr}
+  .srow{grid-template-columns:1fr}
+  .irow{grid-template-columns:1fr 1fr}
+  .irow .fix{grid-column:1/-1}
+  .matrix{font-size:.75rem}
+  .matrix .cell{font-size:1.2rem;gap:.3rem}
+}
+@media (max-width:26rem){ .match{gap:.4rem} .match .btn{font-size:.85rem;padding:.35rem .45rem} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+
+.cards4{display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));gap:.8rem}
+.poly{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.3rem 1.2rem;display:grid;gap:.8rem;min-width:0}
+.pword{font-family:var(--display);font-weight:700;font-size:clamp(2.6rem,8vw,3.6rem);color:var(--green-deep);line-height:1}
+.pmeans{list-style:none;margin:0;padding:0;display:grid;gap:.35rem}
+.pmeans li{display:flex;align-items:center;gap:.6rem;font-size:1rem}
+.ptag{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;border-radius:4px;padding:.1rem .4rem;min-width:5.6rem;text-align:center;flex:none}
+.ptag.t{background:var(--green);color:#FFFFFF}
+.ptag.a{background:var(--vowel-soft);color:var(--vowel)}
+.pairs span b{color:var(--green-deep)}
+</style>
+
+<a href="index.html" style="display:block;background:#0B2D4F;color:#EAF4FB;font:700 14px 'PT Sans',Arial,sans-serif;text-decoration:none;padding:10px max(16px,env(safe-area-inset-left,0px))">← Семинар бетіне оралу</a>
+<nav class="top" aria-label="Тараулар">
+  <ul>
+    <li><a href="#soz">Сөз және мағына</a></li>
+    <li><a href="#kop">Көп мағыналы</a></li>
+    <li><a href="#antonim">Антоним</a></li>
+    <li><a href="#omonim">Омоним</a></li>
+    <li><a href="#sinonim">Синоним</a></li>
+    <li><a href="#tabu">Табу, эвфемизм</a></li>
+    <li><a href="#frazeo">Фразеологизм</a></li>
+    <li><a href="#makal">Мақал-мәтел</a></li>
+    <li><a href="#koner">Көнерген, жаңа сөздер</a></li>
+    <li><a href="#kirme">Кірме, диалект</a></li>
+    <li><a href="#kasibi">Кәсіби, термин</a></li>
+    <li><a href="#olimp">Олимпиадалық тапсырмалар</a></li>
+    <li><a href="#test">Қорытынды тест</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="intro">
+    <span class="lbl">Қазақ тілі · Олимпиадаға дайындық · 8–11-сынып</span>
+    <h1>Лексика</h1>
+    <p class="sub">Сөз және оның мағынасы, көп мағыналы сөздер, антоним, омоним, синоним, табу мен эвфемизм, фразеологизм, мақал-мәтел, көнерген және жаңа сөздер, кірме, диалект, кәсіби сөздер мен терминдер. Әр тақырыпта анықтама, мысалдар, есте сақтайтын тұстар және тексерілетін тапсырмалар бар.</p>
+    <div class="topics">
+      <a href="#soz">Тура / ауыспалы мағына</a><a href="#omonim">Омоним мен көп мағыналы сөз</a><a href="#sinonim">Синоним қатарлары</a><a href="#tabu">Эвфемизм / дисфемизм</a><a href="#frazeo">Тұрақты тіркес</a><a href="#koner">Тарихи сөз / архаизм</a><a href="#kirme">Кірме сөздер</a><a href="#kasibi">Терминдер</a>
+    </div>
+  </div>
+  <div class="poly" aria-label="Көз сөзінің мағыналары">
+    <span class="lbl">Бір сөз, бірнеше мағына</span>
+    <div class="pword">көз</div>
+    <ul class="pmeans">
+      <li><span class="ptag t">тура</span>адамның көзі</li>
+      <li><span class="ptag a">ауыспалы</span>иненің көзі</li>
+      <li><span class="ptag a">ауыспалы</span>терезенің көзі</li>
+      <li><span class="ptag a">ауыспалы</span>бұлақтың көзі</li>
+      <li><span class="ptag a">ауыспалы</span>білімнің көзі</li>
+    </ul>
+    <p class="small">Барлығы бір негізден тараған, бір сөз табы (зат есім) → <b>көп мағыналы сөз</b>.</p>
+  </div>
+</header>
+
+<!-- §1 -->
+<section class="ch" id="soz">
+  <div class="ch-head"><span class="num">§1</span><h2>Лексика. Сөз және мағына</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p><b>Лексика</b> — бір тілдегі сөздердің жиынтығы. Қазақ тілінде лексика <b>сөздік құрам</b> деген ұғымды білдіреді. Тілдің лексикасын тіл білімінің <b>лексикология</b> ғылымы зерттейді.</p>
+    <p>Лексикология <b>семасиология</b> (мағына), <b>этимология</b> (сөздің шығу тегі), <b>фразеология</b> (тұрақты тіркестер), <b>диалектология</b> (жергілікті сөздер) т.б. салаларға бөлінеді. Лексикологияның басты зерттеу нысаны — <b>сөз</b>.</p>
+  </div>
+
+  <h3 class="sub-h">Сөз нені атайды?</h3>
+  <div class="cards4">
+    <div class="mini"><span class="lbl">Заттық ұғым атауы</span><p class="words">ана, жұлдыз, аспан, өзен, гүл, адам, бақыт, арман, топырақ</p></div>
+    <div class="mini"><span class="lbl">Сындық ұғым атауы</span><p class="words">ақ, әдемі, сыпайы, таза, ащы, жуас, жүйрік, таяз, сары, қоңыр</p></div>
+    <div class="mini"><span class="lbl">Сандық ұғым атауы</span><p class="words">жеті, отыз, алпыс, мың, тоқсан, миллион, бесеу, отызыншы</p></div>
+    <div class="mini"><span class="lbl">Қимыл, іс-әрекет атауы</span><p class="words">жүр, бар, оқы, бер, жаз, айт, дайындал, көр, жүгір, ойлан</p></div>
+  </div>
+
+  <div class="two">
+    <div class="block">
+      <h3>Тура және ауыспалы мағына</h3>
+      <ul class="list">
+        <li><b>Тура мағына</b> — сөздің бастапқы, негізгі мағынасы. Заттың немесе құбылыстың атын тура атайды: <i>адамның аяғы, адамның көзі, қоянның құлағы, суық жел, биік тау, жылы киім</i>.</li>
+        <li><b>Ауыспалы мағына</b> — тура мағынаның негізінде қалыптасқан, ойды көркем жеткізуге қолданылатын келтірінді мағына: <i>күннің көзі, жұмыстың аяғы, әңгіменің басы, ел құлағы, суық хабар, биік мақсат, жылы сөз</i>.</li>
+      </ul>
+      <div class="tbl narrow"><table>
+        <thead><tr><th>Сөз</th><th>Тура</th><th>Ауыспалы</th></tr></thead>
+        <tbody>
+          <tr><td><b>аяқ</b></td><td>адамның аяғы</td><td>жұмыстың аяғы</td></tr>
+          <tr><td><b>бас</b></td><td>адамның басы</td><td>әңгіменің басы</td></tr>
+          <tr><td><b>суық</b></td><td>суық жел</td><td>суық хабар</td></tr>
+          <tr><td><b>биік</b></td><td>биік тау</td><td>биік мақсат</td></tr>
+          <tr><td><b>жылы</b></td><td>жылы киім</td><td>жылы сөз</td></tr>
+          <tr><td><b>түп</b></td><td>ыдыстың түбі</td><td>сөздің түбі</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="remember">
+      <h4>Есте сақта: лексикалық мағынасы жоқ сөздер</h4>
+      <p>Қазақ тілінде жеке тұрғанда ешқандай мағынаға ие бола алмайтын сөздер бар. Олар мағынасы бар сөздермен тіркесіп қана қолданылады. Бұлар — <b>шылаулар</b> (көмекші сөздер).</p>
+      <div class="chips"><span class="chip">қарады</span><span class="chip">сияқты</span><span class="chip">бірге</span><span class="chip">дейін</span><span class="chip">кейін</span><span class="chip">секілді</span><span class="chip">соң</span><span class="chip">таман</span><span class="chip">тарта</span><span class="chip">үшін</span></div>
+      <p class="small"><i>жүз қаралы, батыл сияқты, анасымен бірге, мектепке дейін, дайындықтан кейін, әкесі секілді, үйге таман, мыңға тарта, туған жер үшін</i></p>
+    </div>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s1a"></div>
+    <div class="task" data-task="s1b"></div>
+    <div class="task" data-task="s1c"></div>
+  </div>
+</section>
+
+<!-- §2 -->
+<section class="ch" id="kop">
+  <div class="ch-head"><span class="num">§2</span><h2>Көп мағыналы сөздер</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p>Екі не одан да көп мағынада қолданылатын сөздер <b>көп мағыналы сөздер</b> (полисемия) деп аталады. Көп мағыналы сөздер <b>бір сөз табынан</b> болады және <b>бір негізден таралады</b>: мағыналары арасында байланыс бар.</p>
+  </div>
+  <div class="cards3">
+    <div class="mini"><span class="lbl">көз</span><p class="words">адамның көзі · иненің көзі · терезенің көзі · бұлақтың көзі · білімнің көзі · істің көзі</p><p class="small">Ортақ белгі: тесік, қуыс, бастау.</p></div>
+    <div class="mini"><span class="lbl">бас</span><p class="words">адамның басы · таудың басы · бұлақтың басы · талдың басы · әңгіменің басы</p><p class="small">Ортақ белгі: бір нәрсенің жоғарғы жағы, басталатын жері.</p></div>
+    <div class="mini"><span class="lbl">аяқ</span><p class="words">адамның аяғы · үстелдің аяғы · жұмыстың аяғы · өзеннің аяғы · аяқ (ыдыс)</p><p class="small">Ортақ белгі: төменгі жағы, соңы, тірегі.</p></div>
+  </div>
+  <div class="remember">
+    <h4>Есте сақта</h4>
+    <ul class="list">
+      <li>Көп мағыналы сөздің бір мағынасы — <b>тура</b>, қалғандары — сол тура мағынадан туған <b>ауыспалы</b> мағыналар.</li>
+      <li>Мағыналардың барлығы <b>бір сөз табында</b> қалады. Сөз табы өзгерсе (бас — зат есім / бас — етістік), бұл енді <b>омоним</b> (§4).</li>
+    </ul>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s2a"></div>
+    <div class="task" data-task="s2b"></div>
+  </div>
+</section>
+
+<!-- §3 -->
+<section class="ch" id="antonim">
+  <div class="ch-head"><span class="num">§3</span><h2>Антонимдер</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p>Мағыналары бір-біріне <b>қарама-қарсы</b> сөздер <b>антонимдер</b> деп аталады (грек. <i>anti</i> — қарсы, <i>onyma</i> — атау). Антоним жұбы бір сөз табынан болады және бір ұғымның екі шетін білдіреді.</p>
+  </div>
+  <div class="two">
+    <div class="block">
+      <h3>Мысалдар</h3>
+      <div class="pairs">
+        <span><b>елгезек</b> бала — <b>тілазар</b> бала</span>
+        <span><b>шабан</b> ат — <b>жүрдек</b> ат</span>
+        <span><b>іскер</b> адам — <b>олақ</b> адам</span>
+        <span><b>жақсы</b> мінез — <b>жаман</b> мінез</span>
+        <span><b>қисық</b> ағаш — <b>түзу</b> ағаш</span>
+        <span><b>тату</b> көрші — <b>араз</b> көрші</span>
+        <span>ыстық — суық</span><span>кең — тар</span><span>бай — кедей</span><span>кәрі — жас</span><span>кіру — шығу</span><span>күндіз — түн</span>
+      </div>
+    </div>
+    <div class="remember">
+      <h4>Есте сақта: антонимдер мақал-мәтел мен жұмбақта жиі кездеседі</h4>
+      <ul class="list">
+        <li><b>Ащы</b> мен <b>тұщыны</b> татқан білер, <b>алыс</b> пен <b>жақынды</b> жортқан білер.</li>
+        <li><b>Аз</b> сөз — алтын, <b>көп</b> сөз — көмір.</li>
+        <li>Антонимдерден <b>қос сөз</b> жасалады: <i>ащы-тұщы, алыс-жақын, аз-көп, үлкен-кіші, ары-бері</i>.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s3a"></div>
+    <div class="task" data-task="s3b"></div>
+  </div>
+</section>
+
+<!-- §4 -->
+<section class="ch" id="omonim">
+  <div class="ch-head"><span class="num">§4</span><h2>Омонимдер</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p><b>Омоним</b> (грек. <i>homos</i> — бірдей, <i>onyma</i> — атау) — сыртқы тұлғасы, яғни айтылуы, естілуі, жазылуы бірдей, мағыналары <b>әртүрлі</b> сөздер. Омонимдердің мағыналары арасында <b>байланыс болмайды</b>.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Белгі</th><th>Омоним</th><th>Көп мағыналы сөз</th></tr></thead>
+    <tbody>
+      <tr><td>Сыртқы тұлғасы</td><td>бірдей</td><td>бірдей</td></tr>
+      <tr><td>Мағыналық байланыс</td><td><b>болмайды</b></td><td><b>болады</b>, бір негізден тарайды</td></tr>
+      <tr><td>Сөз табы</td><td>әртүрлі сөз табы болуы мүмкін</td><td>бір сөз табы</td></tr>
+      <tr><td>Мысал</td><td><i>Басыңды жоғары көтеріп, аяғыңды жылдам <b>бас</b>.</i> — бас (зат есім), бас (етістік)</td><td><i>Талдың <b>басына</b> қарлығаш ұя салыпты. Жолаушылар бұлақтың <b>басына</b> келіп демалды.</i></td></tr>
+    </tbody>
+  </table></div>
+  <div class="cards3">
+    <div class="mini"><span class="lbl">ат</span><p class="words">ат (жылқы) · ат (есім) · ат (етістік: оқ ат)</p></div>
+    <div class="mini"><span class="lbl">жаз</span><p class="words">жаз (жыл мезгілі) · жаз (етістік: хат жаз)</p></div>
+    <div class="mini"><span class="lbl">жүз</span><p class="words">жүз (сан) · жүз (бет) · жүз (етістік: суда жүз)</p></div>
+    <div class="mini"><span class="lbl">қой</span><p class="words">қой (жануар) · қой (етістік: орнына қой)</p></div>
+    <div class="mini"><span class="lbl">түс</span><p class="words">түс (түс көру) · түс (түс мезгілі) · түс (етістік: аттан түс)</p></div>
+    <div class="mini"><span class="lbl">бет</span><p class="words">бет (адамның беті) · бет (кітаптың беті) — <b>көп мағыналы</b>, омоним емес</p></div>
+  </div>
+  <div class="remember">
+    <h4>Есте сақта: қалай ажыратамыз?</h4>
+    <ul class="list">
+      <li>Сұрақ қойып көріңіз: <i>бас — не?</i> (зат есім), <i>бас — не істе?</i> (етістік). Сұрақ әртүрлі болса — омоним.</li>
+      <li>Сұрақ бірдей болса, мағыналар арасында ортақ белгі бар ма, қарау керек. Бар болса — көп мағыналы, жоқ болса — омоним.</li>
+    </ul>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s4a"></div>
+    <div class="task" data-task="s4b"></div>
+  </div>
+</section>
+
+<!-- §5 -->
+<section class="ch" id="sinonim">
+  <div class="ch-head"><span class="num">§5</span><h2>Синонимдер</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p>Айтылуы, естілуі, жазылуы әр алуан, мағыналары бір-біріне жақын, жуық мәнді сөздер <b>синонимдер</b> деп аталады.</p>
+  </div>
+  <ol class="rules">
+    <li>Синоним сөздер <b>әртүрлі дыбысталады</b>.</li>
+    <li>Синоним сөздердің <b>мағынасы бір-біріне жақын</b> болып келеді.</li>
+    <li>Синоним сөздер <b>бір сөз табынан</b> болады.<span class="ex"><i>Апатты аймаққа көмекші, жәрдемші топ келді</i> — көмекші, жәрдемші бірінің орнына бірін ауыстырып қолдануға болады.</span></li>
+  </ol>
+  <h3 class="sub-h">Синоним қатарлары</h3>
+  <div class="cards4">
+    <div class="mini"><span class="lbl">Зат есім</span><p class="words">ел · халық · жұрт · көпшілік · жамағат</p></div>
+    <div class="mini"><span class="lbl">Сын есім</span><p class="words">сұлу · әдемі · келбетті · ажарлы · көрікті</p></div>
+    <div class="mini"><span class="lbl">Етістік</span><p class="words">кездесу · дидарласу · ұшырасу · жолығу</p></div>
+    <div class="mini"><span class="lbl">Үстеу</span><p class="words">алыс · қашық · шалғай · қиян</p></div>
+  </div>
+  <div class="remember">
+    <h4>Есте сақта: фразеологиялық синонимдер</h4>
+    <ul class="list">
+      <li>Кейбір сөздердің синонимі тұрақты тіркес түрінде де кездеседі.</li>
+      <li><b>сұлу, әдемі, көрікті</b> = <i>үріп ауызға салғандай</i></li>
+      <li><b>алыс, қашық</b> = <i>ит арқасы қиянда, ит өлген жер</i></li>
+    </ul>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s5a"></div>
+    <div class="task" data-task="s5b"></div>
+  </div>
+</section>
+
+<!-- §6 -->
+<section class="ch" id="tabu">
+  <div class="ch-head"><span class="num">§6</span><h2>Табу. Эвфемизм. Дисфемизм</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p><b>Табу</b> — ескі наным-сенім, мифтік ұғым бойынша атын атауға тыйым салынған сөздер.</p>
+    <p><b>Эвфемизм</b> — құлаққа түрпідей тиіп, жағымсыз, тұрпайы естілетін сөздерді сыпайы, жағымды сөздермен ауыстырып айту. Мәдениеттілік пен сыпайылықты білдіреді.</p>
+    <p><b>Дисфемизм</b> — эвфемизмге қарама-қарсы, әдеби тілге жатпайтын, тұрпайы, дөрекі түрде айтылатын, біреуді кемсіту мақсатында қолданылатын сөздер.</p>
+  </div>
+  <h3 class="sub-h">Табу сөздер қалай қалыптасқан?</h3>
+  <ol class="rules">
+    <li>Табиғаттың дүлей күшіне байланысты.<span class="ex">«Жай түсті» десе қырсығы тиеді деп, <b>жай</b> сөзін <b>жасыл</b> сөзімен ауыстырған.</span></li>
+    <li>Адам өміріне қауіпті жыртқыш аңдар мен жәндіктерге байланысты.<span class="ex">Малға шабады деп, <b>қасқыр</b> сөзін <b>ит-құс, ұлыма</b> деп атаған.</span></li>
+    <li>Адамды опат қылатын ауру аттарына байланысты.<span class="ex"><b>Шешек</b> ауруын <b>қорасан</b> деп атаған.</span></li>
+    <li>Әдет-ғұрыпқа байланысты: жаңа түскен келін қайын жұртындағы адамдардың атын тура атамайды.<span class="ex">Қыздарға: <i>Ақылдас, Еркем, Шырайлым, Айнамкөз</i>; ер адамдарға: <i>Шырақ, Мырза жігіт, Төре бала, Би аға</i>.</span></li>
+  </ol>
+  <div class="tbl narrow"><table>
+    <thead><tr><th>Дисфемизм</th><th>Эвфемизм</th></tr></thead>
+    <tbody>
+      <tr><td>Құрт ауруы</td><td>Өкпе ауруы</td></tr>
+      <tr><td>Қылтамақ</td><td>Жіңішке ауру</td></tr>
+      <tr><td>Саңырау, керең</td><td>Құлағының мүкісі бар</td></tr>
+      <tr><td>Соқыр</td><td>Зағип</td></tr>
+      <tr><td>Ақсақ</td><td>Аяғын сылтып басады</td></tr>
+      <tr><td>Екіқабат</td><td>Аяғы ауыр</td></tr>
+      <tr><td>Туды</td><td>Дүниеге келді</td></tr>
+      <tr><td>Өлді</td><td>Қайтыс болды</td></tr>
+      <tr><td>Мылжың</td><td>Сөзуар</td></tr>
+      <tr><td>Ұрлықшы</td><td>Қолының жымысқысы бар</td></tr>
+      <tr><td>Өсекші</td><td>Аузы жеңіл</td></tr>
+      <tr><td>Өтірікші</td><td>Қосып айтады</td></tr>
+    </tbody>
+  </table></div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s6a"></div>
+    <div class="task" data-task="s6b"></div>
+    <div class="task" data-task="s6c"></div>
+  </div>
+</section>
+
+<!-- §7 -->
+<section class="ch" id="frazeo">
+  <div class="ch-head"><span class="num">§7</span><h2>Тұрақты сөз тіркестері (фразеологизмдер)</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p>Екі немесе одан да көп сөздің тіркесуі арқылы жасалатын, құрамындағы сөздердің орнын ауыстыруға келмейтін, бәрі тұтасып бір мағынаға ие болатын, бір сөйлем мүшесінің қызметін атқаратын тіркестер — <b>тұрақты тіркестер</b>, <b>фразеологизмдер</b> деп аталады.</p>
+    <p><i>Екі иығына екі кісі мінгендей</i> — денелі, тұлғалы, иықты. <i>Аяғы аяғына жұқпады</i> — шапшаң, тез жүрді.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Тұрақты сөз тіркестері</th><th>Еркін сөз тіркестері</th></tr></thead>
+    <tbody>
+      <tr><td>1. Құрамындағы сөздердің орнын ауыстыруға келмейді.</td><td>Құрамындағы сөздердің орнын өзгертуге болады.</td></tr>
+      <tr><td>2. Мағынасы құрамындағы сөздердің мағыналарынан алшақ болады.</td><td>Мағынасы тіркесті құрайтын сөздермен тікелей байланысты.</td></tr>
+      <tr><td>3. Құрамындағы сөздер бір ғана синтаксистік қызмет атқарады.</td><td>Әр сөздің жеке-жеке синтаксистік қызметі болады.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="two">
+    <div class="block">
+      <h3>Бір-біріне антоним тұрақты тіркестер</h3>
+      <ul class="list">
+        <li><b>Бетінен оты шықты</b> (ұялды) — <b>беті бүлк етпеді</b> (ұялмады).</li>
+        <li><b>Ажары сынды</b> (мұңайды) — <b>қуанышы қойнына сыймады</b> (қуанды).</li>
+        <li><b>Қолы қолына жұқпады</b> (тез қимылдады) — <b>саусағының ұшын қимылдатпады</b> (ештеңе істемеді).</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h3>Бір-біріне синоним тұрақты тіркестер</h3>
+      <ul class="list">
+        <li><b>Үріп ауызға салғандай; қыздың жиған жүгіндей</b> — сұлу, әдемі, көрікті.</li>
+        <li><b>Ит өлген жер; ит арқасы қиянда</b> — алыс, қашық, шалғай.</li>
+        <li><b>Ит терісін басына қаптады; жерден алып, жерге салды</b> — ұрысты, сөкті.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s7a"></div>
+    <div class="task" data-task="s7b"></div>
+    <div class="task" data-task="s7c"></div>
+  </div>
+</section>
+
+<!-- §8 -->
+<section class="ch" id="makal">
+  <div class="ch-head"><span class="num">§8</span><h2>Мақал-мәтелдер</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p>Мақал-мәтелдер де тұрақталған, қалыптасқан сөздер тобы болып саналады. Ондағы сөздердің орнын басқа сөздермен алмастыруға келмейді. Бірге айтылғанымен, мақал мен мәтелдің өзіндік айырмашылығы бар.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Белгі</th><th>Мақал</th><th>Мәтел</th></tr></thead>
+    <tbody>
+      <tr><td>Мазмұны</td><td>Істің <b>себебі мен салдары</b> бірге айтылады, шарты мен нәтижесі қатар беріледі: <i>(Егер) ісім өнсін десең, (онда) еңбек ет.</i></td><td>Істің <b>салдары</b> айтылып, себебі айтылмайды: <i>Сабыр түбі — сары алтын.</i></td></tr>
+      <tr><td>Құрылысы</td><td>Көбіне <b>құрмалас сөйлем</b>: <i>Еңбек етпесең, елге өкпелеме; егін екпесең, жерге өкпелеме.</i></td><td>Көбіне <b>жай сөйлем</b>: <i>Көп түкірсе — көл. Басқа пәле тілден.</i></td></tr>
+    </tbody>
+  </table></div>
+  <div class="tbl narrow"><table>
+    <thead><tr><th>Мақал</th><th>Мәтел</th></tr></thead>
+    <tbody>
+      <tr><td>Туған жердей жер болмас, туған елдей ел болмас.</td><td>Саяз су сарқырап ағады.</td></tr>
+      <tr><td>Бірлік болмай, тірлік болмас.</td><td>Жеңілтектік жарға жығар.</td></tr>
+      <tr><td>Ұсталы ел озар, ұстасыз ел тозар.</td><td>Қайтып кірер есікті қатты жаппа.</td></tr>
+      <tr><td>Жақсыдан үйрен, жаманнан жирен.</td><td>Тәуекел кемесі суға батпайды.</td></tr>
+      <tr><td>Ұлдың ұяты — әкеге, қыздың ұяты — шешеге.</td><td>Сиырдың сүті тілінде.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s8a"></div>
+  </div>
+</section>
+
+<!-- §9 -->
+<section class="ch" id="koner">
+  <div class="ch-head"><span class="num">§9</span><h2>Көнерген сөздер. Жаңа сөздер</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p><b>Көнерген сөздер</b> — тарихи шығармаларда ғана кездесетін, қолданыстан шығып қалған, мағынасы көмескі сөздер. Олар екіге бөлінеді: <b>1) тарихи сөздер; 2) архаизмдер</b>.</p>
+  </div>
+  <div class="two">
+    <div class="block">
+      <h3>Тарихи сөздер</h3>
+      <p>Ескі заманда қолданылған, дәуірі өткен заттар мен ұғымдардың атаулары. Олардың өзі де, атауы да қолданыстан шыққан.</p>
+      <ul class="list">
+        <li><b>Ел басқаруға байланысты:</b> хан, патша, уәзір, би, ағасұлтан, болыс, ауылнай.</li>
+        <li><b>Қару-жарақ атаулары:</b> садақ, жебе, сауыт, айбалта, найза, адырна.</li>
+        <li><b>Кеңес дәуірінің әкімшілік сөздері:</b> қызыл әскер, қызыл отау.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h3>Архаизмдер</h3>
+      <p>Халықтың тұрмыс-тіршілігіне, салт-санасына байланысты, әр дәуірде өзгеріп, басқа сөздермен ауысып отыратын ескірген сөздер.</p>
+      <ul class="list">
+        <li><b>Мата атаулары:</b> патсайы, торқа, биқасап, дүрия.</li>
+        <li><b>Әдет-ғұрып атаулары:</b> бесік құда, сауын айту, ұрын бару.</li>
+        <li><b>Үй тұрмысына қатысты:</b> жаппа, лашық, саптыаяқ, кебеже, әбдіре, шидем, күпі, шекпен, сәукеле.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="two">
+    <div class="mini">
+      <span class="lbl">Қайта жаңарған көнерген сөздер</span>
+      <p class="words"><b>Діни ұғым атаулары:</b> жаназа, имам, мешіт, ораза, жайнамаз.</p>
+      <p class="words"><b>Жыл атаулары:</b> барыс, ұлу, тышқан.</p>
+      <p class="words"><b>Ай атаулары:</b> қаңтар, наурыз, маусым.</p>
+    </div>
+    <div class="mini">
+      <span class="lbl">Неологизмдер (жаңа сөздер)</span>
+      <p>Жаңа ұғым аттарын білдіретін сөздер. Тілге сіңісіп, халыққа танымал болған соң жаңа сөз болудан қалады.</p>
+      <p class="words">процесс — <b>үдеріс</b>, резервуар — <b>сұйыққойма</b>, парк — <b>саябақ</b>, теплица — <b>жылыжай</b>, телеграмма — <b>жеделхат</b>, пенсия — <b>зейнетақы</b>, класс — <b>сынып</b>.</p>
+      <p class="words"><b>Тіркесу арқылы:</b> жердің жасанды серігі, ғарыш айлағы, халықаралық қауымдастық.</p>
+      <p class="words"><b>Соңғы жылдары:</b> орамжапырақ, қызанақ, жасуша, қожалық, жылыжай.</p>
+    </div>
+  </div>
+  <div class="remember">
+    <h4>Есте сақта: тарихи сөз бен архаизмнің айырмасы</h4>
+    <ul class="list">
+      <li><b>Тарихи сөз</b>: заттың (ұғымның) өзі жойылған, сондықтан атауы да жоқ. <i>Болыс</i> қазір жоқ.</li>
+      <li><b>Архаизм</b>: зат не ұғым бар болуы мүмкін, бірақ атауы ескіріп, басқа сөзбен ауысқан.</li>
+    </ul>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s9a"></div>
+    <div class="task" data-task="s9b"></div>
+  </div>
+</section>
+
+<!-- §10 -->
+<section class="ch" id="kirme">
+  <div class="ch-head"><span class="num">§10</span><h2>Кірме сөздер. Диалект сөздер</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p>Тілдің сөздік құрамы үнемі өзгеріп отырады. Тілге басқа тілден енген сөздер <b>кірме сөздер</b> деп аталады. Қазақ тіліне <b>араб-парсы, моңғол, орыс</b> тілдерінен көптеген сөздер кірген.</p>
+  </div>
+  <div class="cards3">
+    <div class="mini"><span class="lbl">Араб-парсы тілінен</span><p class="words">адам, қоғам, ғалым, білім, ғылым, мектеп, кітап, әлем, әдебиет, мәдениет, әліпби</p></div>
+    <div class="mini"><span class="lbl">Моңғол тілінен</span><p class="words">жасақ, ұлыс, нөкер, жарлық, аймақ, өлке, Тарбағатай, Зайсан, Баянауыл, Алтай</p></div>
+    <div class="mini"><span class="lbl">Орыс тілінен</span><p class="words">жәшік, тәрелке, сөмке, кәмпит, бәтеңке, самауыр, зауыт, кереует, жәрмеңке, үстел</p></div>
+  </div>
+  <div class="two">
+    <div class="block">
+      <h3>Кірме сөздің қазақша баламасы</h3>
+      <div class="pairs">
+        <span>коллектив — <b>ұжым</b></span><span>вертолет — <b>тікұшақ</b></span><span>самолет — <b>ұшақ</b></span><span>аэропорт — <b>әуежай</b></span><span>аудитория — <b>дәрісхана</b></span><span>протокол — <b>хаттама</b></span>
+      </div>
+    </div>
+    <div class="block">
+      <h3>Диалект сөздер</h3>
+      <p>Жалпыхалықтық сипат алмаған, белгілі бір аймақтағы тұрғындардың сөйлеу тілінде ғана қолданылатын сөздер <b>диалект сөздер</b> деп аталады.</p>
+      <p class="words"><i>сым, жейде, дарбаза, көпшік, тұқым, қоңсы, елгезер, бәдірең, кеуірт, таңлай, маңлай, тыңла, құдағай, кәсе, кигіз, жадағай, шекер, сүгірет, кеуіл</i></p>
+    </div>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s10a"></div>
+    <div class="task" data-task="s10b"></div>
+  </div>
+</section>
+
+<!-- §11 -->
+<section class="ch" id="kasibi">
+  <div class="ch-head"><span class="num">§11</span><h2>Кәсіби сөздер. Термин сөздер</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p><b>Кәсіби сөздер</b> — белгілі бір кәсіппен, шаруашылық саласымен шұғылданатын адамдар арасында қолданылатын, көпшілікке бірдей түсінікті бола бермейтін сөздер.</p>
+    <p><b>Термин сөздер</b> — ғылым мен техника, өндіріс саласында қолданылатын арнаулы заттар мен ұғымдардың атауы болатын сөздер.</p>
+  </div>
+  <div class="two">
+    <div class="block">
+      <h3>Кәсіби сөздердің екі саласы</h3>
+      <div class="mini">
+        <span class="lbl">1. Қолөнершілікке байланысты</span>
+        <p class="words"><b>пышқы</b> — араның түрі, <b>шербек</b> — үлкен ара, <b>ыңғыру</b> — ағаш ойғыш, <b>тышуыр</b> — бұрап тескіш, <b>пәрбі</b> — шойын тескіш, <b>атауыз</b> — шеге суырғыш, <b>біз</b> — аяқкиім тігетін құрал, <b>тарамыс</b> — аяқкиім тігетін жіп, <b>ұршық</b> — жүннен жіп иіретін құрал, <b>көрік, төс, қысқаш</b> — ұста құралдары.</p>
+      </div>
+      <div class="mini">
+        <span class="lbl">2. Ауыл шаруашылығына байланысты</span>
+        <p class="words"><b>Мақта:</b> пая, шиіт, терімші. <b>Жүгері:</b> дүмбі, пәшік, сота. <b>Бау-бақша:</b> әңгелек, жәмше, торлама. <b>Қызылша:</b> қылша, өркен, түбіртек, жом. <b>Мал:</b> жүген, құрық, шылбыр, тізгін, қамшы, бишік, ер-тұрман, терлік, тоқым, доға, қамыт.</p>
+      </div>
+    </div>
+    <div class="block">
+      <h3>Термин сөздердің жасалуы</h3>
+      <ol class="rules">
+        <li><b>Баламасы бар терминдер</b>: жергілікті және көне сөздерден жасалған.<span class="ex">универсал — <b>әмбебап</b>, устав — <b>жарғы</b>, рынок — <b>нарық</b>, комплекс — <b>кешен</b>, администратор — <b>әкім</b>.</span></li>
+        <li><b>Баламасы бар терминдер</b>: бар сөздерді біріктіру арқылы.<span class="ex">семья — <b>отбасы</b>, музей — <b>мұражай</b>, герб — <b>елтаңба</b>, гимн — <b>әнұран</b>, паспорт — <b>төлқұжат</b>.</span></li>
+        <li><b>Қазақша баламасы жоқ интернационалдық терминдер</b>.<span class="ex">коэффициент, синус, куб, азот, аммиак, карта, материк, глобус, синтаксис, диалект, антоним, дисфемизм.</span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s11a"></div>
+    <div class="task" data-task="s11b"></div>
+  </div>
+</section>
+
+<!-- §12 -->
+<section class="ch" id="olimp">
+  <div class="ch-head"><span class="num">§12</span><h2>Лексикалық талдау және олимпиадалық тапсырмалар</h2></div>
+  <div class="anal">
+    <header><h3>Лексикалық талдау үлгісі</h3><span>«Бұлақтың көзі ашылды»</span></header>
+    <ol>
+      <li><b>Көзі</b> — көп мағыналы сөз. Тура мағынасы — адамның көру мүшесі.</li>
+      <li>Бұл сөйлемде — <b>ауыспалы мағына</b>: бұлақтың бастауы, судың шығатын жері.</li>
+      <li>Сөз табы — зат есім (не?). Мағыналар бір негізден тараған, сондықтан омоним емес.</li>
+      <li>Шығу тегі — төл сөз. Қолданылу аясы — жалпыхалықтық (диалект, кәсіби, термин емес).</li>
+      <li>Синонимі (осы мағынада): <i>бастау, қайнар</i>.</li>
+    </ol>
+  </div>
+  <div class="tasks">
+    <h3>Ойлану тапсырмалары</h3>
+    <details class="open">
+      <summary><span class="t-type">Тапсырма · 1</span><span>«Ат» сөзі қатысқан үш сөйлем құрап, олардың омоним екенін дәлелдеңіз.</span></summary>
+      <div class="ans">
+        <p><i>Ақ боз <b>ат</b> шауып келеді.</i> — жылқы (зат есім, не?). <i>Баланың <b>аты</b> — Ерлан.</i> — есім (зат есім, не?). <i>Садақпен оқ <b>ат</b>.</i> — етістік (не істе?).</p>
+        <p>Үшеуінің мағынасы арасында ешқандай байланыс жоқ, біреуінің сөз табы да басқа. Сондықтан — омоним.</p>
+      </div>
+    </details>
+    <details class="open">
+      <summary><span class="t-type">Тапсырма · 2</span><span>Неге «таудың басы» мен «бұлақтың басы» омоним емес, ал «бас ауырды» мен «тежегішті бас» омоним?</span></summary>
+      <div class="ans">
+        <p>Таудың басы, бұлақтың басы — бір нәрсенің басталатын, жоғарғы жері деген ортақ мағына бар, екеуі де зат есім. Бұл — көп мағыналы сөз.</p>
+        <p>«Бас ауырды» — зат есім (не?), «тежегішті бас» — етістік (не істе?). Мағыналық байланыс жоқ, сөз табы әртүрлі → омоним.</p>
+      </div>
+    </details>
+    <details class="open">
+      <summary><span class="t-type">Тапсырма · 3</span><span>«Садақ» пен «шекпен» сөздерінің қайсысы тарихи сөз, қайсысы архаизм? Неге?</span></summary>
+      <div class="ans">
+        <p><b>Садақ</b> — тарихи сөз: қару ретінде өзі қолданыстан шыққан.</p>
+        <p><b>Шекпен</b> — архаизм: үй тұрмысына қатысты киім атауы, мұндай сырт киім бар, бірақ атауы ескірген, басқа сөздермен ауысқан.</p>
+      </div>
+    </details>
+    <details class="open">
+      <summary><span class="t-type">Тапсырма · 4</span><span>«Жаңа түскен келін қайнысын Шырақ дейді» деген сөйлемдегі құбылыс лексиканың қай тақырыбына жатады? Тағы үш мысал келтіріңіз.</span></summary>
+      <div class="ans">
+        <p>Бұл — <b>табу</b>, әдет-ғұрыпқа байланысты түрі: келін қайын жұртындағы адамдардың атын тура атамайды.</p>
+        <p>Мысалдар: <i>Мырза жігіт, Төре бала, Би аға</i> (ер адамдарға), <i>Еркем, Шырайлым, Айнамкөз</i> (қыздарға).</p>
+      </div>
+    </details>
+    <details class="open">
+      <summary><span class="t-type">Тапсырма · 5</span><span>«Ұшақ, әуежай, тікұшақ» сөздері неологизм бе, кірме сөз бе? Түсіндіріңіз.</span></summary>
+      <div class="ans">
+        <p>Бұлар — кірме сөздердің (самолет, аэропорт, вертолет) <b>қазақша баламалары</b>. Жасалған кезде жаңа сөз, яғни неологизм болды.</p>
+        <p>Тілге сіңісіп, халыққа танымал болған соң олар жаңа сөз болудан қалады, жалпы қолданыстағы сөзге айналады.</p>
+      </div>
+    </details>
+    <details class="open">
+      <summary><span class="t-type">Тапсырма · 6</span><span>«Аузы жеңіл» тіркесі эвфемизм бе, фразеологизм бе? Екеуі де бола ала ма?</span></summary>
+      <div class="ans">
+        <p>Екеуі де. Құрамындағы сөздердің орнын ауыстыруға келмейді, мағынасы (өсекші) сөздердің жеке мағынасынан алшақ → <b>фразеологизм</b>.</p>
+        <p>Сонымен бірге «өсекші» деген дөрекі сөздің орнына сыпайы айтылады → <b>эвфемизм</b>. Бір құбылыс құрылымы жағынан фразеологизм, қызметі жағынан эвфемизм бола алады.</p>
+      </div>
+    </details>
+    <details class="open">
+      <summary><span class="t-type">Тапсырма · 7</span><span>Мақал мен мәтелді ажыратыңыз: «Еңбек етсең, ерінбей, тояды қарның тіленбей» және «Сабыр түбі — сары алтын».</span></summary>
+      <div class="ans">
+        <p>Біріншісі — <b>мақал</b>: шарты (еңбек етсең) мен нәтижесі (тояды қарның) қатар айтылған, құрмалас сөйлем.</p>
+        <p>Екіншісі — <b>мәтел</b>: себебі айтылмай, тек қорытынды берілген, жай сөйлем.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- §13 -->
+<section class="ch" id="test">
+  <div class="ch-head"><span class="num">§13</span><h2>Қорытынды тест</h2></div>
+  <p>Барлық тақырып бойынша 22 сұрақ. Әр сұраққа бір рет жауап беруге болады, жауаптан кейін түсіндірме шығады.</p>
+  <div class="task" data-task="final"></div>
+</section>
+
+<footer>
+  <span>Қазақ тілі · Лексика · Олимпиадаға дайындық материалы</span>
+  <span>8–11-сынып</span>
+</footer>
+
+</div>
+
+<script>
+var TASKS = {
+  s1a:{type:"sort",title:"Топтастыр",q:"Сөз қандай ұғымның атауы?",cats:["заттық","сындық","сандық","қимыл"],items:[["жұлдыз",0],["сыпайы",1],["тоқсан",2],["дайындал",3],["бақыт",0],["жүйрік",1],["бесеу",2],["жүгір",3],["топырақ",0],["қоңыр",1],["миллион",2],["ойлан",3]]},
+  s1b:{type:"sort",title:"Топтастыр",q:"Сөз тіркесіндегі ерекшеленген сөз қандай мағынада тұр?",cats:["тура","ауыспалы"],items:[["адамның АЯҒЫ",0],["жұмыстың АЯҒЫ",1],["СУЫҚ жел",0],["СУЫҚ хабар",1],["БИІК тау",0],["БИІК мақсат",1],["ел ҚҰЛАҒЫ",1],["қоянның ҚҰЛАҒЫ",0],["ЖЫЛЫ сөз",1],["ЖЫЛЫ киім",0],["күннің КӨЗІ",1],["ыдыстың ТҮБІ",0]]},
+  s1c:{type:"mcq",title:"Тест",q:"Лексикалық мағынасы жоқ, жеке тұрғанда мағынаға ие бола алмайтын сөз:",opts:["бірге","бірлік","біреу","бірінші"],a:0,why:"«Бірге» — шылау, тек мағыналы сөзбен тіркесіп қолданылады: анасымен бірге."},
+
+  s2a:{type:"sort",title:"Топтастыр",q:"«Көз» сөзі қандай мағынада тұр?",cats:["тура","ауыспалы"],items:[["адамның көзі",0],["иненің көзі",1],["терезенің көзі",1],["жан-жануардың көзі",0],["бұлақтың көзі",1],["білімнің көзі",1],["істің көзі",1]]},
+  s2b:{type:"mcq",title:"Тест",q:"Көп мағыналы сөздің негізгі белгісі:",opts:["Әртүрлі сөз табынан болады","Мағыналары бір негізден тарайды","Әртүрлі дыбысталады","Мағыналары қарама-қарсы"],a:1,why:"Көп мағыналы сөз бір сөз табынан болады, мағыналары арасында байланыс бар."},
+
+  s3a:{type:"match",title:"Сәйкестігін тап",q:"Сөзді антонимімен сәйкестендіріңіз.",pairs:[["елгезек","тілазар"],["шабан","жүрдек"],["іскер","олақ"],["қисық","түзу"],["тату","араз"],["ащы","тұщы"],["алыс","жақын"]]},
+  s3b:{type:"mcq",title:"Тест",q:"«Аз сөз — алтын, көп сөз — көмір» мақалындағы антонимдер:",opts:["алтын — көмір","аз — көп","сөз — алтын","аз — алтын"],a:1,why:"Аз — көп мағыналары қарама-қарсы. Алтын мен көмір бұл жерде салыстыру үшін алынған, антоним жұбы емес."},
+
+  s4a:{type:"sort",title:"Топтастыр",q:"Ерекшеленген сөздер омоним бе, көп мағыналы ма?",cats:["омоним","көп мағыналы"],items:[["басың ауырды / тежегішті БАС",0],["таудың басы / бұлақтың басы",1],["жүз теңге / жүзі жылы",0],["адамның аяғы / үстелдің аяғы",1],["жаз келді / хат жаз",0],["иненің көзі / адамның көзі",1],["ақ боз ат / оқ ат",0],["кітаптың беті / адамның беті",1]]},
+  s4b:{type:"mcq",title:"Тест",q:"«Басыңды жоғары көтеріп, аяғыңды жылдам бас» сөйлеміндегі «бас» сөздері — омоним. Себебі:",opts:["бірдей дыбысталады","біреуі зат есім, біреуі етістік, мағыналық байланыс жоқ","екеуі де дене мүшесі","синоним болып тұр"],a:1,why:"Бірінші «бас» — не? (зат есім), екінші — не істе? (етістік). Мағыналары байланыспайды."},
+
+  s5a:{type:"sort",title:"Топтастыр",q:"Синоним сөздерді сөз табына қарай топтаңыз.",cats:["зат есім","сын есім","етістік","үстеу"],items:[["жұрт",0],["ажарлы",1],["дидарласу",2],["шалғай",3],["жамағат",0],["келбетті",1],["ұшырасу",2],["қиян",3],["көпшілік",0],["көрікті",1],["жолығу",2],["қашық",3]]},
+  s5b:{type:"mcq",title:"Тест",q:"«Сұлу, әдемі, көрікті» сөздерінің фразеологиялық синонимі:",opts:["ит арқасы қиянда","үріп ауызға салғандай","аяғы аяғына жұқпады","беті бүлк етпеді"],a:1,why:"Ит арқасы қиянда — алыс; аяғы аяғына жұқпады — тез жүрді; беті бүлк етпеді — ұялмады."},
+
+  s6a:{type:"match",title:"Сәйкестігін тап",q:"Дисфемизмді эвфемизммен сәйкестендіріңіз.",pairs:[["соқыр","зағип"],["өлді","қайтыс болды"],["мылжың","сөзуар"],["өтірікші","қосып айтады"],["өсекші","аузы жеңіл"],["саңырау","құлағының мүкісі бар"],["туды","дүниеге келді"]]},
+  s6b:{type:"match",title:"Сәйкестігін тап",q:"Табу сөзді оны алмастырған сөзбен сәйкестендіріңіз.",pairs:[["жай (найзағай)","жасыл"],["қасқыр","ит-құс, ұлыма"],["шешек ауруы","қорасан"]]},
+  s6c:{type:"mcq",title:"Тест",q:"Біреуді кемсіту мақсатында айтылатын, әдеби тілге жатпайтын дөрекі сөздер:",opts:["эвфемизм","табу","дисфемизм","неологизм"],a:2,why:"Дисфемизм — эвфемизмге қарама-қарсы құбылыс."},
+
+  s7a:{type:"match",title:"Сәйкестігін тап",q:"Тұрақты тіркесті мағынасымен сәйкестендіріңіз.",pairs:[["екі иығына екі кісі мінгендей","денелі, тұлғалы"],["аяғы аяғына жұқпады","тез жүрді"],["бетінен оты шықты","ұялды"],["ажары сынды","мұңайды"],["қуанышы қойнына сыймады","қуанды"],["ит терісін басына қаптады","ұрысты, сөкті"],["ит өлген жер","алыс"]]},
+  s7b:{type:"sort",title:"Топтастыр",q:"Тіркес тұрақты ма, еркін бе?",cats:["тұрақты","еркін"],items:[["қолы қолына жұқпады",0],["жылы киім",1],["беті бүлк етпеді",0],["биік тау",1],["саусағының ұшын қимылдатпады",0],["анасымен бірге",1],["қыздың жиған жүгіндей",0],["үйге таман",1]]},
+  s7c:{type:"mcq",title:"Тест",q:"Тұрақты сөз тіркесінің белгісі емес:",opts:["сөздердің орнын ауыстыруға келмейді","бір сөйлем мүшесінің қызметін атқарады","әр сөздің жеке синтаксистік қызметі болады","мағынасы сөздердің мағынасынан алшақ"],a:2,why:"Әр сөздің жеке синтаксистік қызметі — еркін сөз тіркесінің белгісі."},
+
+  s8a:{type:"sort",title:"Топтастыр",q:"Мақал ма, мәтел ме?",cats:["мақал","мәтел"],items:[["Бірлік болмай, тірлік болмас.",0],["Саяз су сарқырап ағады.",1],["Ұсталы ел озар, ұстасыз ел тозар.",0],["Тәуекел кемесі суға батпайды.",1],["Жақсыдан үйрен, жаманнан жирен.",0],["Сиырдың сүті тілінде.",1],["Туған жердей жер болмас, туған елдей ел болмас.",0],["Көп түкірсе — көл.",1]]},
+
+  s9a:{type:"sort",title:"Топтастыр",q:"Сөз қай топқа жатады?",cats:["тарихи сөз","архаизм","неологизм"],items:[["болыс",0],["торқа",1],["жасуша",2],["ауылнай",0],["саптыаяқ",1],["жылыжай",2],["айбалта",0],["сауын айту",1],["қызанақ",2],["ағасұлтан",0],["кебеже",1],["сұйыққойма",2]]},
+  s9b:{type:"match",title:"Сәйкестігін тап",q:"Сөзді оның қазақша баламасымен сәйкестендіріңіз.",pairs:[["процесс","үдеріс"],["парк","саябақ"],["теплица","жылыжай"],["телеграмма","жеделхат"],["пенсия","зейнетақы"],["класс","сынып"]]},
+
+  s10a:{type:"sort",title:"Топтастыр",q:"Кірме сөз қай тілден енген?",cats:["араб-парсы","моңғол","орыс"],items:[["мектеп",0],["нөкер",1],["кереует",2],["әліпби",0],["жарлық",1],["самауыр",2],["мәдениет",0],["аймақ",1],["бәтеңке",2],["ғалым",0],["ұлыс",1],["жәрмеңке",2]]},
+  s10b:{type:"input",title:"Жаз",q:"Кірме сөздің қазақша баламасын жазыңыз.",items:[["самолет",["ұшақ"]],["вертолет",["тікұшақ"]],["аэропорт",["әуежай"]],["коллектив",["ұжым"]],["аудитория",["дәрісхана"]],["протокол",["хаттама"]]]},
+
+  s11a:{type:"sort",title:"Топтастыр",q:"Кәсіби сөз қай салаға жатады?",cats:["қолөнер","мақта","мал шаруашылығы"],items:[["атауыз",0],["шиіт",1],["шылбыр",2],["ұршық",0],["пая",1],["қамыт",2],["қысқаш",0],["терімші",1],["тоқым",2]]},
+  s11b:{type:"input",title:"Жаз",q:"Терминнің қазақша баламасын жазыңыз.",items:[["семья",["отбасы"]],["музей",["мұражай"]],["герб",["елтаңба"]],["гимн",["әнұран"]],["паспорт",["төлқұжат"]],["рынок",["нарық"]],["универсал",["әмбебап"]]]},
+
+  final:{type:"quiz",items:[
+    {q:"Тілдің сөздік құрамын зерттейтін ғылым:",opts:["фонетика","лексикология","морфология","синтаксис"],a:1,why:"Лексикологияның басты зерттеу нысаны — сөз."},
+    {q:"Сөздің шығу тегін зерттейтін сала:",opts:["семасиология","этимология","фразеология","диалектология"],a:1,why:"Семасиология — мағына, фразеология — тұрақты тіркес, диалектология — жергілікті сөздер."},
+    {q:"Сындық ұғым атауы:",opts:["өзен","жуас","мың","айт"],a:1,why:"Өзен — заттық, мың — сандық, айт — қимыл атауы."},
+    {q:"Ауыспалы мағынадағы тіркес:",opts:["биік тау","суық жел","жылы сөз","қоянның құлағы"],a:2,why:"Жылы сөз — көңілге жағымды сөз, тура мағынадан туған келтірінді мағына."},
+    {q:"Лексикалық мағынасы жоқ сөз:",opts:["секілді","сенім","сезім","секіру"],a:0,why:"Секілді — шылау: әкесі секілді."},
+    {q:"Көп мағыналы сөз:",opts:["ат (жылқы, есім)","жаз (мезгіл, етістік)","көз (адамның, иненің)","жүз (сан, бет)"],a:2,why:"Иненің көзі мен адамның көзі бір негізден тараған, бір сөз табы."},
+    {q:"Омонимдердің негізгі белгісі:",opts:["мағыналық байланыс болады","мағыналық байланыс болмайды","әртүрлі дыбысталады","мағыналары қарама-қарсы"],a:1,why:"Омоним сөздер әртүрлі мағынада қолданылады, байланысы жоқ."},
+    {q:"Антоним жұбы:",opts:["елгезек — тілазар","сұлу — әдемі","алыс — қашық","ел — халық"],a:0,why:"Қалғандары — синонимдер."},
+    {q:"«Шабан ат» тіркесіндегі «шабан» сөзінің антонимі:",opts:["жүйрік","жүрдек","жалқау","қара"],a:1,why:"Шабан ат — жүрдек ат."},
+    {q:"Синонимге тән белгі емес:",opts:["әртүрлі дыбысталады","мағыналары жақын","бір сөз табынан болады","мағыналары қарама-қарсы"],a:3,why:"Қарама-қарсы мағына — антонимге тән."},
+    {q:"«Кездесу» сөзінің синонимі:",opts:["айрылысу","ұшырасу","қоштасу","кету"],a:1,why:"Кездесу, дидарласу, ұшырасу, жолығу."},
+    {q:"Атын атауға тыйым салынған сөздер:",opts:["эвфемизм","табу","дисфемизм","архаизм"],a:1,why:"Табу ескі наным-сенім, мифтік ұғымға байланысты."},
+    {q:"Қасқырды табу бойынша қалай атаған?",opts:["қорасан","жасыл","ұлыма","шырақ"],a:2,why:"Қасқыр — ит-құс, ұлыма. Қорасан — шешек, жасыл — жай."},
+    {q:"«Соқыр» сөзінің эвфемизмі:",opts:["зағип","ақсақ","керең","мылжың"],a:0,why:"Зағип — сыпайы, мәдени түрі."},
+    {q:"«Аяғы аяғына жұқпады» тіркесінің мағынасы:",opts:["жалқау","шапшаң, тез жүрді","денелі","ұялды"],a:1,why:"Тұрақты тіркестің мағынасы құрамындағы сөздердің мағынасынан алшақ."},
+    {q:"«Бетінен оты шықты» тіркесінің антонимі:",opts:["ажары сынды","беті бүлк етпеді","қолы қолына жұқпады","ит өлген жер"],a:1,why:"Ұялды — ұялмады."},
+    {q:"Мәтел:",opts:["Бірлік болмай, тірлік болмас.","Ұсталы ел озар, ұстасыз ел тозар.","Сабыр түбі — сары алтын.","Еңбек етпесең, елге өкпелеме."],a:2,why:"Мәтелде себебі айтылмайды, көбіне жай сөйлем."},
+    {q:"Тарихи сөз:",opts:["торқа","болыс","кебеже","сауын айту"],a:1,why:"Торқа — мата, кебеже — үй тұрмысы, сауын айту — әдет-ғұрып атаулары (архаизм)."},
+    {q:"Қайта жаңарған көнерген сөз:",opts:["наурыз","ауылнай","садақ","лашық"],a:0,why:"Ай атаулары (қаңтар, наурыз, маусым) қайта қолданысқа енді."},
+    {q:"Моңғол тілінен енген сөз:",opts:["кітап","жарлық","кәмпит","мектеп"],a:1,why:"Кітап, мектеп — араб-парсы, кәмпит — орыс тілінен."},
+    {q:"Диалект сөз:",opts:["көпшік","кереует","ұжым","әнұран"],a:0,why:"Көпшік жалпыхалықтық емес, белгілі бір аймақта ғана қолданылады."},
+    {q:"Қазақша баламасы жоқ интернационалдық термин:",opts:["отбасы","елтаңба","коэффициент","нарық"],a:2,why:"Коэффициент, синус, куб, глобус т.б. баламасыз қолданылады."}
+  ]}
+};
+
+(function(){
+  function el(tag, cls, text){var e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e;}
+  function head(t, title, q){var h=el("div","t-head"); h.appendChild(el("span","t-type",title)); h.appendChild(el("p","t-q",q)); t.appendChild(h);}
+  function seeded(n){var s=n*9301+49297; return function(){s=(s*9301+49297)%233280; return s/233280;};}
+  function shuffle(arr, seed){var r=seeded(seed), a=arr.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(r()*(i+1)); var tmp=a[i];a[i]=a[j];a[j]=tmp;} return a;}
+  function norm(s){return s.toLowerCase().replace(/[‐-―−·.\s]+/g,"-").replace(/[\[\]]/g,"").replace(/-+/g,"-").replace(/^-|-$/g,"");}
+
+  function mcq(box, d, onDone){
+    var opts=el("div","opts"), why=el("p","why"); why.hidden=true; var done=false;
+    d.opts.forEach(function(o,i){
+      var b=el("button","btn",o); b.type="button";
+      b.addEventListener("click",function(){
+        if(done) return; done=true;
+        [].forEach.call(opts.children,function(c,k){c.disabled=true; if(k===d.a) c.classList.add("ok");});
+        if(i!==d.a) b.classList.add("bad");
+        why.hidden=false; why.textContent=(i===d.a?"Дұрыс. ":"Қате. ")+d.why;
+        if(onDone) onDone(i===d.a);
+      });
+      opts.appendChild(b);
+    });
+    box.appendChild(opts); box.appendChild(why);
+  }
+
+  var render={
+    mcq:function(t,d){head(t,d.title,d.q); mcq(t,d);},
+    sort:function(t,d){
+      head(t,d.title,d.q);
+      var list=el("div"); var sel={};
+      d.items.forEach(function(it,i){
+        var row=el("div","srow"); var lab=el("span","item",it[0]); var ch=el("div","choices");
+        d.cats.forEach(function(c,k){var b=el("button","btn",c); b.type="button"; b.addEventListener("click",function(){sel[i]=k; [].forEach.call(ch.children,function(x,m){x.classList.toggle("sel",m===k); x.classList.remove("ok","bad");}); lab.classList.remove("okm","badm");}); ch.appendChild(b);});
+        row.appendChild(lab); row.appendChild(ch); list.appendChild(row);
+      });
+      t.appendChild(list);
+      var act=el("div","actions"), chk=el("button","btn primary","Тексеру"), rst=el("button","btn ghost","Қайта бастау"), res=el("span","res");
+      chk.type=rst.type="button";
+      chk.addEventListener("click",function(){
+        var ok=0;
+        [].forEach.call(list.children,function(row,i){
+          var lab=row.firstChild, btns=row.lastChild.children, right=d.items[i][1];
+          lab.classList.remove("okm","badm");
+          [].forEach.call(btns,function(b){b.classList.remove("ok","bad");});
+          if(sel[i]===right){ok++; lab.classList.add("okm"); btns[right].classList.remove("sel"); btns[right].classList.add("ok");}
+          else {lab.classList.add("badm"); if(sel[i]!=null){btns[sel[i]].classList.remove("sel"); btns[sel[i]].classList.add("bad");} btns[right].classList.add("ok");}
+        });
+        res.textContent="Нәтиже: "+ok+" / "+d.items.length; res.className="res "+(ok===d.items.length?"good":"warn");
+      });
+      rst.addEventListener("click",function(){sel={}; res.textContent=""; [].forEach.call(list.children,function(row){row.firstChild.classList.remove("okm","badm"); [].forEach.call(row.lastChild.children,function(b){b.classList.remove("ok","bad","sel");});});});
+      act.appendChild(chk); act.appendChild(rst); act.appendChild(res); t.appendChild(act);
+    },
+    match:function(t,d,id){
+      head(t,d.title,d.q+" Алдымен сол жақтан, сосын оң жақтан таңдаңыз.");
+      var wrap=el("div","match"), L=el("div","col"), R=el("div","col"); var cur=null, found=0, miss=0;
+      var res=el("span","res");
+      d.pairs.forEach(function(p,i){var b=el("button","btn",p[0]); b.type="button"; b.addEventListener("click",function(){if(b.disabled) return; [].forEach.call(L.children,function(x){x.classList.remove("sel");}); b.classList.add("sel"); cur=i;}); L.appendChild(b);});
+      var order=shuffle(d.pairs.map(function(_,i){return i;}), id.length*7+d.pairs.length*3+1);
+      order.forEach(function(i){var b=el("button","btn",d.pairs[i][1]); b.type="button"; b.addEventListener("click",function(){
+        if(b.disabled) return;
+        if(cur===null){res.textContent="Алдымен сол жақтағы бағаннан таңдаңыз."; res.className="res"; return;}
+        if(cur===i){found++; var lb=L.children[i]; lb.classList.remove("sel"); lb.classList.add("ok"); b.classList.add("ok"); lb.disabled=b.disabled=true;
+          lb.insertBefore(el("span","n",found+"."),lb.firstChild); b.insertBefore(el("span","n",found+"."),b.firstChild); cur=null;
+          res.textContent= found===d.pairs.length ? "Барлығы табылды! Қате саны: "+miss : "Табылды: "+found+" / "+d.pairs.length;
+          res.className="res "+(found===d.pairs.length&&miss===0?"good":"");
+        } else {miss++; b.classList.add("bad"); setTimeout(function(){b.classList.remove("bad");},600); res.textContent="Сәйкес емес. Қате саны: "+miss; res.className="res warn";}
+      }); R.appendChild(b);});
+      wrap.appendChild(L); wrap.appendChild(R); t.appendChild(wrap);
+      var act=el("div","actions"), rst=el("button","btn ghost","Қайта бастау"); rst.type="button";
+      rst.addEventListener("click",function(){t.innerHTML=""; render.match(t,d,id);});
+      act.appendChild(rst); act.appendChild(res); t.appendChild(act);
+    },
+    input:function(t,d,id){
+      head(t,d.title,d.q);
+      var rows=[];
+      d.items.forEach(function(it,i){
+        var r=el("div","irow"); var p=el("span","p",it[0]); var inp=document.createElement("input"); inp.type="text"; inp.id="in-"+id+"-"+i; inp.setAttribute("aria-label",it[0]); inp.autocomplete="off"; inp.spellcheck=false;
+        var fix=el("span","fix"); r.appendChild(p); r.appendChild(inp); r.appendChild(fix); t.appendChild(r); rows.push([inp,fix,it[1]]);
+      });
+      var act=el("div","actions"), chk=el("button","btn primary","Тексеру"), show=el("button","btn ghost","Жауабын көрсету"), res=el("span","res"); chk.type=show.type="button";
+      chk.addEventListener("click",function(){var ok=0; rows.forEach(function(r){var v=norm(r[0].value); var good=r[2].some(function(a){return norm(a)===v;}); r[0].classList.toggle("ok",good); r[0].classList.toggle("bad",!good); r[1].textContent=good?"✓":""; if(good) ok++;}); res.textContent="Нәтиже: "+ok+" / "+rows.length; res.className="res "+(ok===rows.length?"good":"warn");});
+      show.addEventListener("click",function(){rows.forEach(function(r){r[1].textContent=r[2][0];});});
+      act.appendChild(chk); act.appendChild(show); act.appendChild(res); t.appendChild(act);
+    },
+    stress:function(t,d){
+      head(t,d.title,d.q);
+      var score=0, answered=0, res=el("span","res");
+      d.words.forEach(function(w){
+        var row=el("div","wrow"), tag=el("span","tag",w[2]), sy=el("div","sy"), note=el("p","note"); note.hidden=true; var done=false;
+        w[0].forEach(function(s,k){var b=el("button","btn",s); b.type="button"; b.setAttribute("aria-label",w[2]+": "+s); b.addEventListener("click",function(){
+          if(done) return; done=true; answered++;
+          [].forEach.call(sy.children,function(x,m){x.disabled=true; if(m===w[1]) x.classList.add("ok");});
+          if(k!==w[1]) b.classList.add("bad"); else score++;
+          note.hidden=false; note.textContent=(k===w[1]?"Дұрыс. ":"Қате. ")+w[3];
+          res.textContent="Нәтиже: "+score+" / "+d.words.length; res.className="res "+(answered===d.words.length?(score===d.words.length?"good":"warn"):"");
+        }); sy.appendChild(b);});
+        row.appendChild(tag); row.appendChild(sy); row.appendChild(note); t.appendChild(row);
+      });
+      var act=el("div","actions"), rst=el("button","btn ghost","Қайта бастау"); rst.type="button"; rst.addEventListener("click",function(){t.innerHTML=""; render.stress(t,d);});
+      act.appendChild(rst); act.appendChild(res); t.appendChild(act);
+    },
+    quiz:function(t,d){
+      var bar=el("div","qbar"), m=el("div","meter"), fill=el("i"), out=el("span","res","0 / "+d.items.length);
+      m.appendChild(fill); bar.appendChild(m); bar.appendChild(out); t.appendChild(bar);
+      var right=0, done=0, verdict=el("p","why"); verdict.hidden=true;
+      d.items.forEach(function(q,i){
+        var item=el("div","qitem"); item.appendChild(el("p","t-q",(i+1)+". "+q.q));
+        mcq(item,q,function(ok){done++; if(ok) right++; fill.style.width=(done/d.items.length*100)+"%"; out.textContent=right+" / "+d.items.length;
+          if(done===d.items.length){verdict.hidden=false; verdict.textContent= right>=17?"Өте жақсы! Лексика тарауын жақсы меңгергенсіз.": right>=12?"Жақсы нәтиже. Қате кеткен тақырыптарды қайталаңыз.":"Тақырыптарды қайта оқып, тапсырмаларды орындап шығыңыз.";}
+        });
+        t.appendChild(item);
+      });
+      t.appendChild(verdict);
+      var act=el("div","actions"), rst=el("button","btn ghost","Тестті қайта бастау"); rst.type="button"; rst.addEventListener("click",function(){t.innerHTML=""; render.quiz(t,d);});
+      act.appendChild(rst); t.appendChild(act);
+    }
+  };
+  document.querySelectorAll("[data-task]").forEach(function(t){var id=t.getAttribute("data-task"), d=TASKS[id]; if(d) render[d.type](t,d,id);});
+})();
+</script>
+</body></html>

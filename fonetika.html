@@ -1,0 +1,1292 @@
+<!doctype html><html lang="kk"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Фонетика: олимпиадаға дайындық</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=PT+Sans:ital,wght@0,400;0,700;1,400&family=PT+Mono&display=swap">
+<style>
+/* Layout: оқулық тарауы — ашық жасыл парақ, әр § ішінде: анықтама → ерекшелік → есте сақта → тапсырмалар. Дауысты = қызғылт сары, дауыссыз = көк. */
+:root{
+  --bg:#E4F3E7; --bg2:#D3EBD8; --surface:#FFFFFF; --ink:#0F2A1C; --muted:#4A6855; --line:#BFDCC6;
+  --green:#1B7A4A; --green-deep:#0E4A2D; --vowel:#C0461B; --vowel-soft:#FBE3D8; --cons:#1F5BA8; --cons-soft:#DCE8F7;
+  --note:#FFF3BF; --note-line:#E3C64C; --ok:#1B7A4A; --ok-soft:#D4EFDD; --bad:#BD3326; --bad-soft:#F8DCD8;
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --body:"PT Sans","Segoe UI",Arial,sans-serif;
+  --mono:"PT Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6}
+.wrap{max-width:68rem;margin:0 auto;padding-inline:1.1rem;padding-block:0 4rem}
+h1,h2,h3,h4{font-family:var(--display);text-wrap:balance;line-height:1.2;margin:0}
+h2{font-size:clamp(1.4rem,3.4vw,2rem);font-weight:700}
+h3{font-size:1.05rem;font-weight:500}
+h4{font-size:.92rem;font-weight:500}
+p{margin:0}
+.lbl{font-family:var(--mono);font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.tr{font-family:var(--mono);color:var(--green-deep);white-space:nowrap}
+.v{color:var(--vowel);font-weight:700}
+.c{color:var(--cons);font-weight:700}
+.hl{background:var(--vowel-soft);color:var(--vowel);font-weight:700;border-radius:3px;padding:0 .1em}
+.st{text-decoration:underline;text-decoration-color:var(--green);text-decoration-thickness:3px;text-underline-offset:4px;font-weight:700}
+.small{font-size:.95rem;color:var(--muted)}
+:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--green-deep)}
+nav.top ul{list-style:none;margin:0 auto;max-width:68rem;padding:.55rem 1.1rem;display:flex;gap:1rem;overflow-x:auto;scrollbar-width:none}
+nav.top a{font-family:var(--mono);font-size:.82rem;color:#D6F0DE;text-decoration:none;white-space:nowrap}
+nav.top a:hover{color:#FFFFFF}
+
+.hero{padding-block:2.6rem 2.2rem;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:2rem;align-items:center}
+.hero h1{font-size:clamp(2.2rem,7vw,4.2rem);font-weight:700;color:var(--green-deep);letter-spacing:-.01em}
+.hero .sub{font-size:1.15rem;max-width:34rem;color:var(--muted)}
+.hero .intro{display:grid;gap:1rem}
+.topics{display:flex;flex-wrap:wrap;gap:.4rem}
+.topics a{font-size:.88rem;padding:.25rem .65rem;border-radius:99px;background:var(--surface);border:1px solid var(--line);color:var(--ink);text-decoration:none}
+.topics a:hover{border-color:var(--green)}
+.word{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.4rem 1.2rem;display:grid;gap:1rem;justify-items:center}
+.word .big{font-family:var(--display);font-size:clamp(1.5rem,4.6vw,2.4rem);font-weight:700;display:flex;gap:.2em;flex-wrap:wrap;justify-content:center}
+.word .big .syl{padding-bottom:.25rem;border-bottom:4px solid transparent}
+.word .big .syl.stress{border-bottom-color:var(--green)}
+.word .big .dot{color:var(--line)}
+.word .facts{display:grid;grid-template-columns:repeat(3,auto);gap:.3rem 1.2rem;font-size:.9rem}
+.word .facts b{font-family:var(--mono);font-size:1.05rem}
+.legend{display:flex;flex-wrap:wrap;gap:.4rem 1rem;font-size:.85rem;color:var(--muted)}
+.legend span::before{content:"";display:inline-block;width:.7rem;height:.7rem;border-radius:2px;margin-right:.35rem;vertical-align:-1px}
+.legend .lv::before{background:var(--vowel)} .legend .lc::before{background:var(--cons)} .legend .ls::before{background:var(--green);height:.2rem;vertical-align:2px}
+
+section.ch{padding-block:3rem 0;display:grid;gap:1.4rem;scroll-margin-top:3rem}
+.ch-head{display:flex;align-items:baseline;gap:.9rem;border-bottom:3px solid var(--green-deep);padding-bottom:.6rem}
+.ch-head .num{font-family:var(--display);font-weight:700;font-size:1rem;color:var(--surface);background:var(--green);border-radius:6px;padding:.2rem .55rem;flex:none}
+.def{background:var(--surface);border-left:5px solid var(--green);border-radius:0 8px 8px 0;padding:1rem 1.2rem;display:grid;gap:.5rem;max-width:56rem}
+.def p{font-size:1.06rem}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:1.2rem}
+.two > *{min-width:0}
+.block{display:grid;gap:.6rem;align-content:start}
+.sub-h{font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--green-deep);padding-top:.6rem}
+ul.list,ol.list{margin:0;padding-left:1.15rem;display:grid;gap:.4rem}
+ul.list li::marker{color:var(--green)}
+ol.rules{margin:0;padding:0;list-style:none;display:grid;gap:.6rem;counter-reset:r}
+ol.rules > li{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.75rem 1rem .75rem 3rem;position:relative;counter-increment:r}
+ol.rules > li::before{content:counter(r);position:absolute;left:.8rem;top:.75rem;font-family:var(--display);font-weight:700;font-size:.85rem;width:1.5rem;height:1.5rem;border-radius:50%;background:var(--green);color:#FFFFFF;display:grid;place-items:center}
+ol.rules .ex{display:block;margin-top:.25rem;font-size:.97rem;color:var(--muted)}
+.remember{background:var(--note);border:1px solid var(--note-line);border-radius:8px;padding:1rem 1.2rem;display:grid;gap:.5rem}
+.remember h4{display:flex;align-items:center;gap:.5rem}
+.remember h4::before{content:"!";display:grid;place-items:center;width:1.4rem;height:1.4rem;border-radius:50%;background:var(--ink);color:var(--note);font-size:.8rem;flex:none}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:.95rem;min-width:30rem}
+.tbl.narrow table{min-width:0}
+th,td{text-align:left;padding:.5rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--mono);font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:400;background:var(--bg2)}
+td.m{font-family:var(--mono)}
+.cards3{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.8rem}
+.mini{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.8rem 1rem;display:grid;gap:.35rem;align-content:start;min-width:0}
+.mini .words{font-size:.97rem}
+.chips{display:flex;flex-wrap:wrap;gap:.35rem}
+.chip{font-family:var(--mono);font-size:.88rem;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:.2rem .55rem}
+.chip b{color:var(--vowel)}
+
+.matrix{display:grid;grid-template-columns:auto repeat(4,minmax(0,1fr));gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.6rem;font-size:.85rem}
+.matrix .h{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);text-align:center;padding:.3rem .2rem;line-height:1.3}
+.matrix .r{font-family:var(--mono);font-size:.72rem;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;padding-right:.4rem}
+.matrix .cell{background:var(--vowel-soft);border-radius:6px;display:flex;align-items:center;justify-content:center;gap:.5rem;font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--vowel);padding:.55rem 0;flex-wrap:wrap}
+.matrix .cell small{font-size:.8rem;opacity:.75}
+.tiles{display:flex;flex-wrap:wrap;gap:.35rem}
+.tile{font-family:var(--display);font-weight:700;font-size:1.15rem;width:2.4rem;height:2.4rem;display:grid;place-items:center;border-radius:6px;background:var(--cons-soft);color:var(--cons)}
+.tile.vw{background:var(--vowel-soft);color:var(--vowel)}
+.cgroups{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem}
+.cgroup{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:1rem;display:grid;gap:.6rem;align-content:start}
+.cgroup p{font-size:.95rem;color:var(--muted)}
+.pairs{display:flex;flex-wrap:wrap;gap:.5rem}
+.pairs span{font-family:var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:.25rem .6rem}
+.sylrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:.7rem}
+.sylcard{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.8rem 1rem;display:grid;gap:.3rem;align-content:start;min-width:0}
+.sylcard .ex{font-family:var(--mono);font-size:1rem}
+.formula{font-family:var(--mono);font-size:.9rem;background:var(--bg2);border-radius:4px;padding:.15rem .45rem;justify-self:start}
+
+.tasks{display:grid;gap:1rem}
+.tasks > h3{color:var(--green-deep)}
+.task{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem;display:grid;gap:.8rem;min-width:0}
+.t-head{display:grid;gap:.3rem}
+.t-type{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--green)}
+.t-q{font-weight:700}
+.btn{font:inherit;font-size:.95rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:6px;padding:.4rem .75rem;cursor:pointer;text-align:left}
+.btn:hover{border-color:var(--green)}
+.btn.primary{background:var(--green);color:#FFFFFF;border-color:var(--green)}
+.btn.primary:hover{background:var(--green-deep)}
+.btn.ghost{background:transparent}
+.btn.sel{background:var(--green-deep);color:#FFFFFF;border-color:var(--green-deep)}
+.btn.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ink)}
+.btn.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--ink)}
+.btn[disabled]{cursor:default}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.45rem}
+.why{font-size:.95rem;border-left:3px solid var(--green);padding-left:.7rem}
+.actions{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.res{font-family:var(--mono);font-size:.88rem}
+.res.good{color:var(--ok)} .res.warn{color:var(--bad)}
+.srow{display:grid;grid-template-columns:minmax(6rem,11rem) 1fr;gap:.6rem;align-items:center;padding:.35rem 0;border-bottom:1px dashed var(--line)}
+.srow:last-child{border-bottom:0}
+.srow .item{font-family:var(--mono);font-size:1.02rem}
+.srow .item.okm::after{content:" ✓";color:var(--ok)}
+.srow .item.badm::after{content:" ✗";color:var(--bad)}
+.srow .choices{display:flex;flex-wrap:wrap;gap:.35rem}
+.srow .choices .btn{padding:.25rem .6rem;font-size:.88rem}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:.5rem 1rem}
+.match .col{display:grid;gap:.4rem;align-content:start;min-width:0}
+.match .btn{width:100%}
+.match .btn .n{font-family:var(--mono);font-size:.75rem;margin-right:.35rem;color:var(--green)}
+.irow{display:grid;grid-template-columns:minmax(7rem,12rem) 1fr auto;gap:.6rem;align-items:center;padding:.3rem 0}
+.irow .p{font-family:var(--mono);font-size:1rem}
+.irow input{font:inherit;font-family:var(--mono);border:1px solid var(--line);border-radius:6px;padding:.35rem .6rem;min-width:0;width:100%;background:var(--surface);color:var(--ink)}
+.irow input.ok{border-color:var(--ok);background:var(--ok-soft)}
+.irow input.bad{border-color:var(--bad);background:var(--bad-soft)}
+.irow .fix{font-family:var(--mono);font-size:.85rem;color:var(--muted);min-width:6rem}
+.wrow{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem;padding:.4rem 0;border-bottom:1px dashed var(--line)}
+.wrow:last-child{border-bottom:0}
+.wrow .sy{display:flex;gap:.25rem;flex-wrap:wrap}
+.wrow .sy .btn{font-family:var(--display);font-size:1rem;padding:.3rem .55rem}
+.wrow .note{font-size:.9rem;color:var(--muted);flex-basis:100%}
+.wrow .tag{font-size:.85rem;color:var(--muted);min-width:7rem}
+details.open{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem}
+details.open summary{cursor:pointer;font-weight:700;list-style:none;display:grid;gap:.3rem}
+details.open summary::-webkit-details-marker{display:none}
+details.open summary .t-type::after{content:" · жауабын көру үшін басыңыз";text-transform:none;letter-spacing:0;color:var(--muted)}
+details.open[open] summary{margin-bottom:.7rem}
+details.open .ans{border-left:3px solid var(--green);padding-left:.8rem;display:grid;gap:.4rem;font-size:.97rem}
+
+.anal{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.anal header{background:var(--green-deep);color:#FFFFFF;padding:.8rem 1.1rem;display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:baseline}
+.anal header h3{font-size:1.3rem}
+.anal header span{font-family:var(--mono);font-size:.9rem;color:#BFE6CB}
+.anal ol{margin:0;padding:1rem 1.1rem 1rem 2.4rem;display:grid;gap:.45rem}
+.anal li::marker{font-family:var(--mono);color:var(--green)}
+
+.qbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 2.6rem);z-index:5;background:var(--surface);padding:.5rem 0;display:flex;align-items:center;gap:1rem}
+.meter{flex:1;height:.6rem;background:var(--bg2);border-radius:99px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:var(--green);transition:width .3s}
+.qitem{display:grid;gap:.6rem;padding:.9rem 0;border-bottom:1px solid var(--line)}
+.qitem:last-of-type{border-bottom:0}
+
+footer{margin-top:4rem;padding-top:1rem;border-top:3px solid var(--green-deep);display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem;color:var(--muted);font-size:.9rem}
+
+@media (max-width:44rem){
+  .hero{grid-template-columns:1fr}
+  .srow{grid-template-columns:1fr}
+  .irow{grid-template-columns:1fr 1fr}
+  .irow .fix{grid-column:1/-1}
+  .matrix{font-size:.75rem}
+  .matrix .cell{font-size:1.2rem;gap:.3rem}
+}
+@media (max-width:26rem){ .match{gap:.4rem} .match .btn{font-size:.85rem;padding:.35rem .45rem} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+</style>
+
+<a href="index.html" style="display:block;background:#0B2D4F;color:#EAF4FB;font:700 14px 'PT Sans',Arial,sans-serif;text-decoration:none;padding:10px max(16px,env(safe-area-inset-left,0px))">← Семинар бетіне оралу</a>
+<nav class="top" aria-label="Тараулар">
+  <ul>
+    <li><a href="#dybys">Дыбыс пен әріп</a></li>
+    <li><a href="#dauysty">Дауысты</a></li>
+    <li><a href="#dauyssyz">Дауыссыз</a></li>
+    <li><a href="#buyn">Буын</a></li>
+    <li><a href="#ekpin">Екпін</a></li>
+    <li><a href="#tasymal">Тасымал</a></li>
+    <li><a href="#undestik">Үндестік заңы</a></li>
+    <li><a href="#dybys-und">Дыбыс үндестігі</a></li>
+    <li><a href="#orfografiya">Орфография</a></li>
+    <li><a href="#orfoepiya">Орфоэпия</a></li>
+    <li><a href="#taldau">Талдау</a></li>
+    <li><a href="#olimp">Олимпиадалық тапсырмалар</a></li>
+    <li><a href="#test">Қорытынды тест</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="intro">
+    <span class="lbl">Қазақ тілі · Олимпиадаға дайындық · 8–11-сынып</span>
+    <h1>Фонетика</h1>
+    <p class="sub">Дауысты және дауыссыз дыбыстар, буын, екпін, тасымал, үндестік заңы, орфография мен орфоэпия. Әр тақырыпта анықтама, заңдылықтар, мысалдар, есте сақтайтын тұстар және тексерілетін тапсырмалар бар.</p>
+    <div class="topics">
+      <a href="#dauysty">Дауыстылар (12)</a><a href="#buyn">Буын түрлері</a><a href="#ekpin">Екпін</a><a href="#tasymal">Тасымал</a><a href="#undestik">Буын үндестігі</a><a href="#dybys-und">Ықпал түрлері</a><a href="#orfografiya">Жазылу ерекшеліктері</a><a href="#orfoepiya">Орфоэпия</a>
+    </div>
+  </div>
+  <div class="word" aria-label="Қарлығаштардың сөзінің буындары">
+    <div class="big">
+      <span class="syl"><span class="c">қ</span><span class="v">а</span><span class="c">р</span></span><span class="dot">·</span>
+      <span class="syl"><span class="c">л</span><span class="v">ы</span></span><span class="dot">·</span>
+      <span class="syl"><span class="c">ғ</span><span class="v">а</span><span class="c">ш</span></span><span class="dot">·</span>
+      <span class="syl"><span class="c">т</span><span class="v">а</span><span class="c">р</span></span><span class="dot">·</span>
+      <span class="syl stress"><span class="c">д</span><span class="v">ы</span><span class="c">ң</span></span>
+    </div>
+    <div class="facts"><span>дауысты <b>5</b></span><span>буын <b>5</b></span><span>әріп <b>14</b></span></div>
+    <div class="legend"><span class="lv">дауысты</span><span class="lc">дауыссыз</span><span class="ls">екпінді буын</span></div>
+  </div>
+</header>
+
+<!-- §1 -->
+<section class="ch" id="dybys">
+  <div class="ch-head"><span class="num">§1</span><h2>Фонетика. Дыбыс пен әріп</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p><b>Фонетика</b> (грек. <i>phone</i> — дыбыс) — тілдегі дыбыстарды, олардың жасалуын, түрлерін, буынды, екпінді және дыбыстардың бір-біріне әсерін зерттейтін тіл білімінің саласы.</p>
+    <p><b>Дыбыс</b> — сөйлеу мүшелерінің қатысуымен жасалып, құлақпен естілетін ең кіші тілдік бірлік. <b>Әріп</b> — дыбыстың жазудағы таңбасы. Дыбысты естиміз және айтамыз, әріпті көреміз және жазамыз.</p>
+  </div>
+  <div class="two">
+    <div class="block">
+      <h3>Ерекшеліктері</h3>
+      <ul class="list">
+        <li>Тіл дыбыстары <span class="v">дауысты</span> және <span class="c">дауыссыз</span> болып екіге бөлінеді.</li>
+        <li>Дауысты дыбыс өкпеден шыққан ауаның кедергіге ұшырамауы арқылы <b>үннен</b> жасалады. Дауыссыз дыбыс жасалғанда ауа кедергіге ұшырайды.</li>
+        <li>Дыбыс сөздің мағынасын ажыратады: <i>тал — тас — тау</i>, <i>өт — от — ат</i>.</li>
+        <li>Ъ, ь әріптері дыбыс белгілемейді, олар — таңба.</li>
+      </ul>
+    </div>
+    <div class="remember">
+      <h4>Есте сақта: әріп саны мен дыбыс саны әрдайым тең емес</h4>
+      <ul class="list">
+        <li><b>Я, ю</b> — қосарлы дыбыстар: я = й+а, ю = й+у. <i>Қоян — [қойан], аю — [айу], қою — [қойу]</i>.</li>
+        <li><b>И</b> төл сөзде <b>ый</b> немесе <b>ій</b> болып айтылады: <i>жиын — [жыйын], киім — [кійім], ине — [ійне]</i>.</li>
+        <li>Мұндай сөздер <b>айтылуы мен жазылуында, әріп саны мен дыбыс санында айырмашылығы бар сөздер</b> деп аталады.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s1a"></div>
+    <div class="task" data-task="s1b"></div>
+  </div>
+</section>
+
+<!-- §2 -->
+<section class="ch" id="dauysty">
+  <div class="ch-head"><span class="num">§2</span><h2>Дауысты дыбыстар және түрлері</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p><b>Дауысты дыбыстар</b> өкпеден шыққан ауаның кедергіге ұшырамауы арқылы үннен жасалады. Қазақ тілінде дауысты дыбыстар саны — <b>12</b>: <span class="v">а, ә, о, ө, е, ы, і, ұ, ү, и, э, (у)</span>.</p>
+  </div>
+
+  <h3 class="sub-h">1. Тілдің қатысына қарай: жуан және жіңішке</h3>
+  <div class="two">
+    <div class="mini">
+      <span class="lbl">Жуан дауыстылар</span>
+      <div class="tiles"><span class="tile vw">а</span><span class="tile vw">о</span><span class="tile vw">ұ</span><span class="tile vw">ы</span><span class="tile vw">у</span></div>
+      <p>Тіл артқа тартылып, тіл үсті дөңестенеді.</p>
+      <p class="words"><b>Тек жуан дауыстылардан құралған сөздер:</b> арыстан, аққу, рақат, қараторғай, дауылпаз, тасбақа.</p>
+    </div>
+    <div class="mini">
+      <span class="lbl">Жіңішке дауыстылар</span>
+      <div class="tiles"><span class="tile vw">ә</span><span class="tile vw">ө</span><span class="tile vw">ү</span><span class="tile vw">і</span><span class="tile vw">е</span><span class="tile vw">и</span><span class="tile vw">э</span><span class="tile vw">у</span></div>
+      <p>Тіл ұшының ілгері созылуы арқылы жасалады.</p>
+      <p class="words"><b>Тек жіңішке дауыстылардан құралған сөздер:</b> өмір, көктем, жүгері, мереке, күміс, ілгіш.</p>
+    </div>
+  </div>
+  <div class="mini">
+    <span class="lbl">Аралас дыбысты сөздер</span>
+    <p>Қазақ тілінде сөздер не тек жуан, не тек жіңішке дауыстылардан құралады. <b>Басқа тілден енген сөздерде, қос сөздер мен біріккен сөздерде</b> жуан және жіңішке дауыстылар араласып келеді. Ондай сөздер <b>аралас дыбысты сөздер</b> деп аталады.</p>
+    <p class="words">Мысалы: емтихан, синтаксис, жөн-жосық, оқта-текте, азық-түлік, Темірқазық, Екібастұз, көзқарас.</p>
+  </div>
+
+  <h3 class="sub-h">2. Жақтың қатысына қарай: ашық және қысаң</h3>
+  <div class="two">
+    <div class="mini">
+      <span class="lbl">Ашық дауыстылар</span>
+      <div class="tiles"><span class="tile vw">а</span><span class="tile vw">ә</span><span class="tile vw">о</span><span class="tile vw">ө</span><span class="tile vw">е</span><span class="tile vw">э</span></div>
+      <p>Жақтың кең ашылуы арқылы жасалады.</p>
+      <p class="words"><b>Тек ашық дауыстылар:</b> орман, өлең, әке, әдеп, бақыт.</p>
+    </div>
+    <div class="mini">
+      <span class="lbl">Қысаң дауыстылар</span>
+      <div class="tiles"><span class="tile vw">ы</span><span class="tile vw">і</span><span class="tile vw">и</span><span class="tile vw">ұ</span><span class="tile vw">ү</span><span class="tile vw">у</span></div>
+      <p>Жақ кең ашылмай, ауа қысылып шығады.</p>
+      <p class="words"><b>Тек қысаң дауыстылар:</b> қызықты, ыдыс, ірімшік, ілгіш, киік, қырқу.</p>
+    </div>
+  </div>
+
+  <h3 class="sub-h">3. Ерін мен езудің қатысына қарай: еріндік және езулік</h3>
+  <div class="two">
+    <div class="mini">
+      <span class="lbl">Еріндік дауыстылар</span>
+      <div class="tiles"><span class="tile vw">о</span><span class="tile vw">ө</span><span class="tile vw">ұ</span><span class="tile vw">ү</span><span class="tile vw">у</span></div>
+      <p>Еріннің алға қарай созылып, дөңгеленуі арқылы жасалады.</p>
+      <p class="words"><b>Тек еріндік дауыстылар:</b> қосу, өру, ұлу, күлу.</p>
+    </div>
+    <div class="mini">
+      <span class="lbl">Езулік дауыстылар</span>
+      <div class="tiles"><span class="tile vw">а</span><span class="tile vw">ә</span><span class="tile vw">е</span><span class="tile vw">и</span><span class="tile vw">э</span><span class="tile vw">ы</span><span class="tile vw">і</span></div>
+      <p>Езудің кейін тартылуы арқылы жасалады.</p>
+      <p class="words"><b>Тек езулік дауыстылар:</b> ақыл, әдемі, егінші, еңбекшіл.</p>
+    </div>
+  </div>
+
+  <div class="two">
+    <div class="block">
+      <h3>Жиынтық кесте</h3>
+      <div class="matrix" role="table" aria-label="Дауысты дыбыстар кестесі">
+        <span></span>
+        <span class="h">ашық<br>езулік</span><span class="h">ашық<br>еріндік</span><span class="h">қысаң<br>езулік</span><span class="h">қысаң<br>еріндік</span>
+        <span class="r">жуан</span>
+        <span class="cell">а</span><span class="cell">о</span><span class="cell">ы</span><span class="cell">ұ <small>у</small></span>
+        <span class="r">жіңішке</span>
+        <span class="cell">ә е <small>э</small></span><span class="cell">ө</span><span class="cell">і <small>и</small></span><span class="cell">ү <small>у</small></span>
+      </div>
+      <p class="small">У әрпі сөздің жуан-жіңішкелігіне қарай екі топта да кездеседі.</p>
+    </div>
+    <div class="block">
+      <h3>Ерін үндестігі</h3>
+      <p>Сөздің алғашқы буынындағы <b>еріндік дауыстылар</b> кейінгі буындардағы <b>езулік дауыстыларды</b> айту кезінде өзіне ұқсатып, еріндікке айналдырады. Бұл — <b>ерін үндестігі</b>.</p>
+      <div class="tbl narrow"><table>
+        <thead><tr><th>Жазылуы</th><th>Айтылуы</th></tr></thead>
+        <tbody>
+          <tr><td>Құрық</td><td class="m">[құрұқ]</td></tr><tr><td>Жүгері</td><td class="m">[жүгөрү]</td></tr><tr><td>Жұмыс</td><td class="m">[жұмұс]</td></tr><tr><td>Көңіл</td><td class="m">[көңүл]</td></tr><tr><td>Көркем</td><td class="m">[көркөм]</td></tr><tr><td>Өнер</td><td class="m">[өнөр]</td></tr><tr><td>Орын</td><td class="m">[орұн]</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <h3 class="sub-h">4. Буын талғайтын және буын талғамайтын дауыстылар</h3>
+  <div class="two">
+    <div class="mini">
+      <span class="lbl">Буын талғамайтын: а, е, ы, і</span>
+      <p>Сөздің барлық буынында жазыла береді.</p>
+      <p class="words">балалық, қызықты, ынтымақ, береке, инелік, еңбекшіл, ертегіші</p>
+    </div>
+    <div class="mini">
+      <span class="lbl">Буын талғайтын: ә, о, ө, ұ, ү</span>
+      <p>Негізінен <b>сөздің бірінші буынында</b> жазылады. Екінші, үшінші буында тек басқа тілден енген сөздерде, қос сөздер мен біріккен сөздерде және адам аттарында кездеседі.</p>
+    </div>
+  </div>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Басқа тілден енген сөздер</th><th>Қос сөздер</th><th>Біріккен сөздер</th></tr></thead>
+      <tbody>
+        <tr><td>куә</td><td>әп-әдемі</td><td>Ақтөбе</td></tr>
+        <tr><td>дүдәмал</td><td>дәрі-дәрмек</td><td>Алакөл</td></tr>
+        <tr><td>күмән</td><td>той-томалақ</td><td>Қызылорда</td></tr>
+        <tr><td>антоним, лото</td><td>құл-құтан</td><td>Көкшетау</td></tr>
+        <tr><td>мазмұн, мағлұмат</td><td>ат-көпір</td><td>Аягөз</td></tr>
+        <tr><td>мәжбүр, дәстүр</td><td>дүние-мүлік, салт-дәстүр</td><td>қолөнер</td></tr>
+        <tr><td></td><td>күндіз-түні, күмбір-күмбір</td><td>Сарыөзек</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="remember">
+    <h4>Есте сақта</h4>
+    <ul class="list">
+      <li>Дауыстыны сипаттағанда үш белгіні бірге ата: <i>о — жуан, ашық, еріндік</i>.</li>
+      <li>Ерін үндестігі жазуда көрсетілмейді: <i>өнер</i> деп жазып, <span class="tr">[өнөр]</span> деп айтамыз.</li>
+      <li>Ә, о, ө, ұ, ү екінші буында келсе, сөздің кірме, қос не біріккен сөз екенін тексер.</li>
+      <li>Кей сөздердің соңында <b>ә</b> айтылғанымен, <b>а</b> жазылады: <i>Рәзинә — Рәзина, Жәмилә — Жәмила, Рәсуә — Рәсуа, жәйләу — жайлау, шәй — шай, кітәп — кітап</i>.</li>
+    </ul>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s2a"></div>
+    <div class="task" data-task="s2b"></div>
+    <div class="task" data-task="s2c"></div>
+    <div class="task" data-task="s2d"></div>
+    <div class="task" data-task="s2e"></div>
+    <div class="task" data-task="s2f"></div>
+    <div class="task" data-task="s2g"></div>
+  </div>
+</section>
+
+<!-- §3 -->
+<section class="ch" id="dauyssyz">
+  <div class="ch-head"><span class="num">§3</span><h2>Дауыссыз дыбыстар және түрлері</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p><b>Дауыссыз дыбыстар</b> — өкпеден шыққан ауа ауыз қуысында кедергіге ұшырап, салдыр (шу) мен үннің қатысуымен немесе тек салдырдан жасалатын дыбыстар. Дауыссыздар өз алдына буын құрай алмайды.</p>
+  </div>
+  <div class="cgroups">
+    <div class="cgroup">
+      <h3>Үнді (сонор)</h3>
+      <div class="tiles"><span class="tile">м</span><span class="tile">н</span><span class="tile">ң</span><span class="tile">л</span><span class="tile">р</span><span class="tile">й</span><span class="tile">у</span></div>
+      <p>Үн басым, салдыр аз.</p>
+    </div>
+    <div class="cgroup">
+      <h3>Ұяң</h3>
+      <div class="tiles"><span class="tile">б</span><span class="tile">в</span><span class="tile">г</span><span class="tile">ғ</span><span class="tile">д</span><span class="tile">ж</span><span class="tile">з</span></div>
+      <p>Салдыр басым, үн аз қатысады.</p>
+    </div>
+    <div class="cgroup">
+      <h3>Қатаң</h3>
+      <div class="tiles"><span class="tile">п</span><span class="tile">ф</span><span class="tile">к</span><span class="tile">қ</span><span class="tile">т</span><span class="tile">с</span><span class="tile">ш</span><span class="tile">щ</span><span class="tile">х</span><span class="tile">һ</span><span class="tile">ц</span><span class="tile">ч</span></div>
+      <p>Тек салдырдан жасалады, үн қатыспайды.</p>
+    </div>
+  </div>
+  <div class="two">
+    <div class="block">
+      <h3>Қатаң мен ұяңның жұптары</h3>
+      <div class="pairs"><span>п — б</span><span>ф — в</span><span>к — г</span><span>қ — ғ</span><span>т — д</span><span>с — з</span><span>ш — ж</span></div>
+      <p class="small">Жұп дыбыстар бір орында жасалып, тек үннің қатысуымен ажыратылады. Сондықтан олар бір-біріне оңай алмасады: <i>тілек → тілегі, құлақ → құлағы, доп → добы</i>.</p>
+    </div>
+    <div class="block">
+      <h3>Жасалу орнына қарай</h3>
+      <div class="tbl narrow"><table>
+        <thead><tr><th>Түрі</th><th>Дыбыстар</th></tr></thead>
+        <tbody>
+          <tr><td>Еріндік</td><td>б, п, м, у</td></tr>
+          <tr><td>Ерін-тіс</td><td>в, ф</td></tr>
+          <tr><td>Тіл алды</td><td>д, т, з, с, ж, ш, н, л, р</td></tr>
+          <tr><td>Тіл ортасы</td><td>й</td></tr>
+          <tr><td>Тіл арты</td><td>г, к, ғ, қ, ң, х</td></tr>
+          <tr><td>Көмей</td><td>һ</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+  <div class="remember">
+    <h4>Есте сақта</h4>
+    <ul class="list">
+      <li>Төл сөз <b>ң</b> дыбысынан басталмайды. <b>Р</b> дыбысынан басталатын сөздер негізінен кірме: <i>радио, рақмет</i>.</li>
+      <li>Төл сөз соңында <b>б, в, г, ғ, д</b> келмейді: <i>кітап, тарақ, тілек</i>.</li>
+      <li><b>Қ, ғ</b> жуан сөзде, <b>к, г</b> жіңішке сөзде жазылады: <i>қала, ғалым / кеме, гүл</i>.</li>
+      <li><b>Й, у</b> — дауыссыз қызметте де жұмсалады. Сондықтан <i>той, тау, май</i> бітеу буын болады.</li>
+    </ul>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s3a"></div>
+    <div class="task" data-task="s3b"></div>
+  </div>
+</section>
+
+<!-- §4 -->
+<section class="ch" id="buyn">
+  <div class="ch-head"><span class="num">§4</span><h2>Буын және буын түрлері</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p>Сөз құрамындағы бір немесе бірнеше дыбыстар тобынан жасалған фонетикалық бөлшек <b>буын</b> деп аталады.</p>
+    <p><b>Дауысты</b> дыбыстар буын құрауға негіз болады. <b>Дауыссыз</b> дыбыстар буын құрай алмайды. Сөздің құрамында қанша дауысты дыбыс болса, сонша буын болады.</p>
+    <p class="small">Мысалы, <b>қарлығаштардың</b> деген сөзде бес дауысты дыбыс бар, яғни сөз бес буыннан құралған: қар-лы-ғаш-тар-дың.</p>
+  </div>
+  <h3 class="sub-h">Буын түрлері</h3>
+  <div class="sylrow">
+    <div class="sylcard">
+      <span class="lbl">Ашық буын</span>
+      <span class="formula">(дауыссыз +) дауысты</span>
+      <p>Бір дауысты дыбыстан құралған және дауыссыздан басталып, дауыстыға аяқталған буын.</p>
+      <span class="ex">а-на, ба-ла, да-ла, бе-ре-ке, ә-ке, ша-ға-ла, же-ті, та-ға</span>
+    </div>
+    <div class="sylcard">
+      <span class="lbl">Жалаң ашық буын</span>
+      <span class="formula">тек дауысты</span>
+      <p>Бір ғана дауысты дыбыстан құралған буын. Ол ашық буынның бір түрі.</p>
+      <span class="ex"><b>ә</b>-же, <b>ұ</b>-лы, <b>ү</b>-кі, <b>а</b>-та</span>
+    </div>
+    <div class="sylcard">
+      <span class="lbl">Тұйық буын</span>
+      <span class="formula">дауысты + дауыссыз</span>
+      <p>Дауысты дыбыстан басталып, дауыссыз дыбысқа аяқталады.</p>
+      <span class="ex">айт, өр, ант, ән, ұлт, аң, ұрт, үй, арс, ел, өрт</span>
+    </div>
+    <div class="sylcard">
+      <span class="lbl">Бітеу буын</span>
+      <span class="formula">дауыссыз + дауысты + дауыссыз</span>
+      <p>Дауыссыздан басталып, дауыссызға аяқталады, яғни ортасы дауысты, екі шеті дауыссыз.</p>
+      <span class="ex">бұлт, жер, қант, той, құрт, тау, жұрт, жез, төрт, дос, серт, гүл, мұрт, қол, сөз, көз, май, дөң</span>
+    </div>
+  </div>
+  <div class="two">
+    <div class="block">
+      <h3>Буынға бөлу ережелері</h3>
+      <ul class="list">
+        <li>Екі дауыстының арасындағы бір дауыссыз келесі буынға өтеді: <i>ба-ла, о-қы, ке-ме</i>.</li>
+        <li>Екі дауыстының арасында екі дауыссыз болса, біреуі алдыңғы, біреуі келесі буынға кетеді: <i>ал-ма, мек-теп</i>.</li>
+        <li>Үш дауыссыз қатар келсе, екеуі алдыңғы буында қалады: <i>айт-ты, ұлт-тық</i>.</li>
+        <li>Бір дауыстыдан тұратын буын жалаң ашық буын болады: <i>а-та, ә-же</i>.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h3>Бітеу буыннан құралған сөздер</h3>
+      <p>Бір сөздің барлық буыны бітеу болуы мүмкін:</p>
+      <div class="chips"><span class="chip">бырт-бырт</span><span class="chip">сарт-сұрт</span><span class="chip">жарқ-жұрқ</span><span class="chip">дүл-дүл</span><span class="chip">маз-мұн</span><span class="chip">жол-дас-тық</span></div>
+    </div>
+  </div>
+  <div class="remember">
+    <h4>Есте сақта</h4>
+    <ul class="list">
+      <li>Буынның саны дауыстылардың санына тең.</li>
+      <li>Буын түрін анықтағанда буынның <b>басы</b> мен <b>соңына</b> қараймыз.</li>
+      <li><i>Той, тау, май, үй</i> сөздеріндегі <b>й, у</b> — дауыссыз. Сондықтан <i>той, тау, май</i> — бітеу буын, ал <i>үй</i> — тұйық буын.</li>
+      <li>Буынға бөлу мен тасымал әрдайым сәйкес келмейді: <i>а-та</i> екі буын, бірақ тасымалданбайды.</li>
+    </ul>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s4a"></div>
+    <div class="task" data-task="s4b"></div>
+    <div class="task" data-task="s4c"></div>
+    <div class="task" data-task="s4d"></div>
+  </div>
+</section>
+
+<!-- §5 -->
+<section class="ch" id="ekpin">
+  <div class="ch-head"><span class="num">§5</span><h2>Екпін</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p>Сөз ішіндегі <b>бір сөздің, бір буынның, бір дыбыстың</b> көтеріңкі айтылуы <b>екпін</b> деп аталады. Қазақ тілінде екпін, негізінен, сөздің <b>соңғы буынына</b> түседі.</p>
+    <p>Екпін төрт түрге бөлінеді: <b>сөз екпіні, ой екпіні, тіркес екпіні, дыбыс екпіні.</b></p>
+  </div>
+
+  <h3 class="sub-h">Екпіннің төрт түрі</h3>
+  <div class="sylrow">
+    <div class="sylcard">
+      <span class="lbl">1. Сөз екпіні</span>
+      <span class="formula">бір буын</span>
+      <p>Екі немесе көп буынды сөздің бір буынының көтеріңкі айтылуы.</p>
+      <span class="ex">Көк<span class="st">тем</span> таңы<span class="st">ның</span> мұнша<span class="st">лық</span> сұлулығын бұ<span class="st">рын</span> байқамап<span class="st">ты</span>.</span>
+    </div>
+    <div class="sylcard">
+      <span class="lbl">2. Ой екпіні (логикалық)</span>
+      <span class="formula">бір сөз</span>
+      <p>Сөйлем ішіндегі бір сөзді оқшаулап, даралап бөліп айту. Ой екпіні түсетін сөз көбінесе <b>баяндауыштың алдында</b> тұрады.</p>
+      <span class="ex">Тілектің әкесі ертең <b>Астанадан</b> келеді.<br>Ертең Астанадан Тілектің <b>әкесі</b> келеді.<br>Тілектің әкесі Астанадан <b>ертең</b> келеді.</span>
+    </div>
+    <div class="sylcard">
+      <span class="lbl">3. Тіркес екпіні</span>
+      <span class="formula">бірнеше сөз — бір екпін</span>
+      <p>Бірнеше сөздің тізбектеліп келіп, бір ғана екпінге ие болуы.</p>
+      <span class="ex">ар-ұж<span class="st">дан</span>, ұзын бой<span class="st">лы</span>, үнсіз қал<span class="st">ды</span>, қоңыр а<span class="st">ла</span>, төбе шашы тік тұр<span class="st">ды</span>, құлақ <span class="st">қой</span></span>
+    </div>
+    <div class="sylcard">
+      <span class="lbl">4. Дыбыс екпіні</span>
+      <span class="formula">бір дыбыс</span>
+      <p>Бір сөздің ішіндегі бір дыбысты көтеріп, созып айту.</p>
+      <span class="ex"><b>Қуаныш</b> — дауыстыға: тамаша-а, жара-а-йсың<br><b>Ренжу, қынжылу</b> — дауыссызға: отыр-р-р, тоқт-тат, ж-жап есікті</span>
+    </div>
+  </div>
+
+  <h3 class="sub-h">Екпін түспейтін қосымшалар мен сөздер</h3>
+  <p>Қазақ тілінде сөз екпіні көбінесе соңғы буынға түседі, бірақ кейбір қосымшалар мен тұлғаларға екпін түспейді. Сонда екпін алдыңғы буында қалады.</p>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Топ</th><th>Қосымша / сөз</th><th>Мысал (екпінді буын асты сызылған)</th></tr></thead>
+      <tbody>
+        <tr><td>Жіктік жалғаулары</td><td class="m">-мын/-мін, -мыз/-міз, -сың/-сің т.б.</td><td>оқу<span class="st">шы</span>мын, ба<span class="st">ра</span>мыз, ба<span class="st">ра</span>сың</td></tr>
+        <tr><td>Болымсыздық жұрнақтары</td><td class="m">-ма/-ме, -ба/-бе, -па/-пе</td><td>о<span class="st">тыр</span>ма, <span class="st">кел</span>ме, <span class="st">жаз</span>ба, <span class="st">айт</span>па</td></tr>
+        <tr><td>Теңеу, ұқсату жұрнақтары</td><td class="m">-дай/-дей, -тай/-тей, -лай/-лей, -ша/-ше</td><td><span class="st">мұз</span>дай, <span class="st">тас</span>тай</td></tr>
+        <tr><td>Тілек, өтініш жұрнақтары</td><td class="m">-шы/-ші</td><td><span class="st">айт</span>шы, <span class="st">көр</span>ші</td></tr>
+        <tr><td>Көмекші сөздер мен шылаулар</td><td class="m">ғой, шейін, соң, арқылы, да/де, та/те, мен, үшін, ма/ме</td><td>ба<span class="st">ла</span> ғой, <span class="st">кел</span>ді ме?, сен<span class="st">ің</span> үшін</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="two">
+    <div class="block">
+      <h3>Екпіннің жылжуы</h3>
+      <p>Сөзге екпін қабылдайтын қосымша жалғанған сайын екпін соңғы буынға жылжиды:</p>
+      <p>ба<span class="st">ла</span> → бала<span class="st">лар</span> → балалар<span class="st">ға</span></p>
+    </div>
+    <div class="block">
+      <h3>Екпін мағына ажыратады</h3>
+      <div class="tbl narrow"><table>
+        <thead><tr><th>Зат есім</th><th>Етістік (бұйрық)</th></tr></thead>
+        <tbody>
+          <tr><td>ал<span class="st">ма</span> (жеміс)</td><td><span class="st">ал</span>ма! (қол тигізбе)</td></tr>
+          <tr><td>жаз<span class="st">ба</span> (жазба жұмыс)</td><td><span class="st">жаз</span>ба! (жазуға болмайды)</td></tr>
+          <tr><td>көр<span class="st">ші</span> (қасындағы адам)</td><td><span class="st">көр</span>ші! (қарашы)</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="remember">
+    <h4>Есте сақта</h4>
+    <ul class="list">
+      <li>Екпіннің 4 түрі: <b>сөз</b> екпіні (буын), <b>ой</b> екпіні (сөз), <b>тіркес</b> екпіні (бірнеше сөз — бір екпін), <b>дыбыс</b> екпіні (дыбыс).</li>
+      <li>Дыбыс екпіні: <b>қуаныш → дауыстыға</b> (тамаша-а), <b>ренжу → дауыссызға</b> (отыр-р-р).</li>
+      <li>Ой екпіні түсетін сөз баяндауышқа жақын, оның алдында тұрады.</li>
+      <li>Екпін түспейтін 5 топ: жіктік жалғауы, болымсыз -ма, теңеу -дай, тілек -шы, шылаулар.</li>
+      <li>Олимпиадада «екпін соңғы буынға түседі» деп қана жауап беру жеткіліксіз. Екпін қабылдамайтын қосымшаларды мысалмен көрсет.</li>
+    </ul>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s5a"></div>
+    <div class="task" data-task="s5b"></div>
+    <div class="task" data-task="s5c"></div>
+    <div class="task" data-task="s5d"></div>
+    <div class="task" data-task="s5e"></div>
+  </div>
+</section>
+
+<!-- §6 -->
+<section class="ch" id="tasymal">
+  <div class="ch-head"><span class="num">§6</span><h2>Тасымал</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p><b>Тасымал</b> — жол соңына сыймаған сөздің бір бөлігін келесі жолға буын жігі бойынша көшіру. Тасымалданатын жерге сызықша (-) қойылады.</p>
+  </div>
+  <div class="two">
+    <div class="block">
+      <h3>Ережелері</h3>
+      <ul class="list">
+        <li>Сөз буын бойынша тасымалданады: <i>ба-лалар, бала-лар, мек-теп</i>.</li>
+        <li>Жалаң ашық буын (бір әріп) жолда қалдырылмайды және келесі жолға көшірілмейді: <i>ата, ағаш, ұлы</i> тасымалданбайды.</li>
+        <li>Дефиспен жазылатын сөздер дефис тұсынан тасымалданады: <i>салт-/дәстүр</i>.</li>
+        <li>Біріккен сөзді сөз шекарасынан бөлген жөн: <i>Екі-бастұз, Ақ-төбе</i>.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h3>Тасымалданбайтындар</h3>
+      <ul class="list">
+        <li>Бір буынды сөздер: <i>бұлт, қант, төрт</i>.</li>
+        <li>Қысқарған сөздер: <i>ҚР, БҰҰ, ЖОО</i>.</li>
+        <li>Сан мен өлшем атауы: <i>15 кг, 2026 ж.</i></li>
+        <li>Аты-жөннің бас әрпі мен тегі: <i>М. Әуезов</i>.</li>
+        <li>Сан мен оған жалғанған қосымша: <i>5-сынып</i>.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="remember">
+    <h4>Есте сақта</h4>
+    <ul class="list">
+      <li>Буынға бөлу — дыбыстық құбылыс, тасымал — жазу ережесі.</li>
+      <li>Тасымалдағанда жолда кемінде екі әріп қалуы және келесі жолға кемінде екі әріп көшуі керек.</li>
+    </ul>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s6a"></div>
+    <div class="task" data-task="s6b"></div>
+  </div>
+</section>
+
+<!-- §7 -->
+<section class="ch" id="undestik">
+  <div class="ch-head"><span class="num">§7</span><h2>Үндестік заңы. Буын үндестігі</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p>Қазақ тілінде дыбыстар <b>сөз ішінде, сөз бен қосымша арасында, сөз бен сөздің арасында</b> бір-бірімен үндесіп, үйлесіп айтылады. Түбір сөздің жуан не жіңішке болуына қарай қосымша да жуан не жіңішке болады және сөздің соңғы дыбысына қарай үйлесіп жалғанады.</p>
+    <p>Сөздің бастан-аяқ үндесіп, үйлесіп, біркелкі әуезбен айтылуы <b>үндестік заңы</b> деп аталады. Оның екі түрі бар: <b>1) буын үндестігі; 2) дыбыс үндестігі.</b></p>
+  </div>
+  <div class="two">
+    <div class="block">
+      <h3>Буын үндестігі</h3>
+      <p><b>Буын үндестігі</b> — түбір сөздің соңғы буынының жуан не жіңішке болуына қарай қосымшаның да жуан не жіңішке түрде жалғануы.</p>
+      <p>Мысалы: бала+<b>лар</b>, үйрек+<b>ті</b>, құдірет+<b>ті</b>, кітап+<b>қа</b>.</p>
+      <p>Дауысты дыбыстар буын құрауға негіз болатындықтан, буын үндестігі <b>дауысты дыбыстар</b> арқылы орындалады.</p>
+    </div>
+    <div class="mini">
+      <span class="lbl">Термин</span>
+      <p>Буын үндестігі <b>сингармонизм</b> деп те аталады. Сингармонизм — грек тілінен енген термин: <i>syn</i> — «бірге», <i>harmonia</i> — «байланысу, үндесу».</p>
+    </div>
+  </div>
+
+  <h3 class="sub-h">Буын үндестігіне бағынбайтын қосымшалар</h3>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Қосымша</th><th>Мысалдар</th></tr></thead>
+      <tbody>
+        <tr><td class="m">-мен, -бен, -пен</td><td>бала<b>мен</b>, жұлдыз<b>бен</b>, жолдас<b>пен</b></td></tr>
+        <tr><td class="m">-қор, -паз, -қой</td><td>еңбек<b>қор</b>, өнер<b>паз</b>, әуес<b>қой</b></td></tr>
+        <tr><td class="m">-тал, -тар, -тай</td><td>өсім<b>тал</b>, кіріп<b>тар</b>, шеше<b>тай</b></td></tr>
+        <tr><td class="m">-хана</td><td>ем<b>хана</b>, дәрі<b>хана</b></td></tr>
+        <tr><td class="m">-нікі, -дікі, -тікі</td><td>Майра<b>нікі</b>, атам<b>дікі</b>, Мақсат<b>тікі</b></td></tr>
+        <tr><td class="m">-кер, -гер, -кеш</td><td>айтыс<b>кер</b>, қалам<b>гер</b>, арба<b>кеш</b></td></tr>
+        <tr><td class="m">-кес, -күнем</td><td>дау<b>кес</b>, пайда<b>күнем</b></td></tr>
+        <tr><td class="m">-ов(а), -ев(а), -ин(а)</td><td>Әуез<b>ов(а)</b>, Серікба<b>ев(а)</b>, Майл<b>ин(а)</b></td></tr>
+        <tr><td class="m">бей-</td><td><b>бей</b>тарап, <b>бей</b>уақыт, <b>бей</b>таныс</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub-h">Буын үндестігіне бағынбай жасалатын күрделі сөздер</h3>
+  <div class="cards3">
+    <div class="mini"><span class="lbl">Қос сөздер</span><p class="words">салт-дәстүр, некен-саяқ, азық-түлік, қыз-келіншек, көрші-қолаң, аумалы-төкпелі, аға-іні</p></div>
+    <div class="mini"><span class="lbl">Біріккен сөздер</span><p class="words">Есекқырған, Екібастұз, түйетабан, Алтынемел, көкқұтан, итмұрын, егеуқұйрық, ақсүйек, Аягөз</p></div>
+    <div class="mini"><span class="lbl">Тіркес сөздер</span><p class="words">келе жатыр, жақын жер, самал жел, жетпіс тоғыз, алтыншы үй, талдырмаш денелі</p></div>
+  </div>
+
+  <div class="block">
+    <h3>Көптік жалғауының жалғану заңдылығы</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Сөз соңындағы дыбыс</th><th>Жуан</th><th>Жіңішке</th><th>Мысал</th></tr></thead>
+      <tbody>
+        <tr><td>Дауысты, р, й, у</td><td>-лар</td><td>-лер</td><td>шағала-лар, үй-лер, тау-лар</td></tr>
+        <tr><td>л, м, н, ң, з, ж</td><td>-дар</td><td>-дер</td><td>жұлдыз-дар, көл-дер, егін-дер</td></tr>
+        <tr><td>Қатаң дауыссыз, б, в, г, д</td><td>-тар</td><td>-тер</td><td>тас-тар, мектеп-тер</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="remember">
+    <h4>Есте сақта</h4>
+    <ul class="list">
+      <li>Буын үндестігі — дауысты дыбыстардың үндестігі. Дыбыс үндестігі — дауыссыз дыбыстардың үндестігі.</li>
+      <li>Буын үндестігіне бағынбайтындар: <b>кірме сөздер</b> (кітап, емтихан), <b>күрделі сөздер</b> (қос, біріккен, тіркес) және <b>бір ғана түрі бар қосымшалар</b> (-мен, -хана, -қор, -паз, бей- т.б.).</li>
+      <li>Кірме сөзге қосымша соңғы буынға қарай жалғанады: <i>кітап+қа, құдірет+ті</i>.</li>
+    </ul>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s7a"></div>
+    <div class="task" data-task="s7b"></div>
+    <div class="task" data-task="s7c"></div>
+    <div class="task" data-task="s7d"></div>
+  </div>
+</section>
+
+<!-- §8 -->
+<section class="ch" id="dybys-und">
+  <div class="ch-head"><span class="num">§8</span><h2>Дыбыс үндестігі (ассимиляция)</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p>Түбір мен қосымшаның, сөз бен сөздің арасындағы <b>дауыссыз дыбыстардың</b> бір-біріне әсер етуі <b>дыбыс үндестігі</b> деп аталады. Дыбыс үндестігі <b>ассимиляция</b> деп те аталады. Ассимиляция — латын тілінің <i>assimilatio</i> «ұқсату» деген сөзінен шыққан термин.</p>
+    <p>Дыбыс үндестігі үшке бөлінеді: <b>1) ілгерінді ықпал; 2) кейінді ықпал; 3) тоғыспалы ықпал.</b></p>
+  </div>
+
+  <h3 class="sub-h">Ілгерінді ықпал: алдыңғы → кейінгі</h3>
+  <p>Қатар тұрған екі дауыссыз дыбыстың <b>алдыңғысының соңғысына</b> ықпал етуі.</p>
+  <ol class="rules">
+    <li>Сөздің соңғы дыбысы <b>қатаң</b> болса, қосымша да <b>қатаңнан</b> басталады.<span class="ex">та<b>ст</b>ы, кө<b>пп</b>ен, ша<b>шқ</b>а</span></li>
+    <li>Сөздің соңғы дыбысы <b>ұяң</b> болса, қосымша да <b>ұяңнан</b> басталады.<span class="ex">жұлды<b>зғ</b>а, сө<b>зб</b>ен</span></li>
+    <li>Сөздің соңғы дыбысы <b>дауысты не үнді</b> болса, қосымша не ұяңнан, не үндіден басталады.<span class="ex">шағала<b>л</b>ар, шағала<b>н</b>ы; егі<b>нм</b>ен, егі<b>нд</b>і</span></li>
+    <li>Сөздің соңғы дыбысы <b>ш</b> болып, қосымша <b>с</b>-дан басталса, с дыбысы <b>ш</b> болып айтылады.<span class="ex">көшсін — <span class="tr">[көшшін]</span>, ұшса — <span class="tr">[ұшша]</span></span></li>
+    <li>Сөздің соңы <b>дауысты, үнді, ұяң</b> дыбысқа бітсе, екінші сөздің басындағы қатаң <b>к, қ</b> ұяң <b>г, ғ</b> болып айтылады.<span class="ex">Меңдіқыз — <span class="tr">[Меңдіғыз]</span>, қара қой — <span class="tr">[қара ғой]</span>, Байкөкше — <span class="tr">[Байгөкше]</span>, бозкөде — <span class="tr">[бозгөде]</span>, Тұрарқожа — <span class="tr">[Тұрарғожа]</span>, жай қалмау — <span class="tr">[жай ғалмау]</span>, Байқоңыр — <span class="tr">[Байғоңыр]</span></span></li>
+    <li>Сөздің алғашқы сыңарындағы <b>қатаң</b> дауыссыздардың ықпалынан екінші сыңардағы <b>ұяң</b> дауыссыздар <b>қатаң</b> болып айтылады.<span class="ex">Тұратбек — <span class="tr">[Тұратпек]</span>, Жолдасбай — <span class="tr">[Жолдаспай]</span>, Сәтбай — <span class="tr">[Сәтпай]</span></span></li>
+  </ol>
+
+  <h3 class="sub-h">Кейінді ықпал: кейінгі → алдыңғы</h3>
+  <p>Қатар тұрған екі дауыссыз дыбыстың <b>соңғысының алдыңғысына</b> ықпал етуі.</p>
+  <ol class="rules">
+    <li>Қатаң <b>қ, к, п</b> дыбыстарына біткен сөздерге <b>дауыстыдан</b> басталған қосымша жалғанғанда, түбірдегі қатаң дыбыс <b>ұяңға</b> айналады. Бұл жазуда да көрсетіледі.<span class="ex">тілек+і — тілегі, құлақ+ы — құлағы, соқ+у — соғу, доп+ы — добы, сеп+е+ді — себеді</span></li>
+    <li><b>Н</b> дыбысына біткен сөзге <b>б, п</b> дыбысынан басталған қосымша не сөз келгенде, н дыбысы <b>м</b> болып айтылады.<span class="ex">сенбе — <span class="tr">[сембе]</span>, он бес — <span class="tr">[ом бес]</span>, сәрсенбі — <span class="tr">[сәрсембі]</span>, Жанпейіс — <span class="tr">[Жампейіс]</span></span></li>
+    <li>Түбірдің соңғы <b>н</b> дыбысы <b>к, қ, ғ, г</b> дыбыстарының алдында <b>ң</b> болып айтылады.<span class="ex">Дүйсенғали — <span class="tr">[Дүйсеңғали]</span>, Сәрсенкүл — <span class="tr">[Сәрсеңкүл]</span>, түнгі — <span class="tr">[түңгі]</span>, сәнқой — <span class="tr">[сәңқой]</span></span></li>
+    <li><b>Ш</b> дыбысының алдында келген <b>с</b> және <b>з</b> дыбыстары айтуда <b>ш</b> болып өзгереді.<span class="ex">құрылысшы — <span class="tr">[құрылышшы]</span>, сөзшең — <span class="tr">[сөшшең]</span>, таныс шығар — <span class="tr">[таныш шығар]</span>, Бозшағыл — <span class="tr">[Бошшағыл]</span>, Тасшайнар — <span class="tr">[Ташшайнар]</span></span></li>
+    <li>Түбір сөз соңғы <b>з</b> дыбысы кейінгі <b>с</b> дыбысының ықпалынан <b>с</b> болып айтылады.<span class="ex">сөзсіз — <span class="tr">[сөссіз]</span>, сазсырнай — <span class="tr">[сассырнай]</span>, жүз сом — <span class="tr">[жүс сом]</span>, жазса — <span class="tr">[жасса]</span></span></li>
+    <li>Алғашқы сөз <b>з</b> дыбысына бітіп, кейінгі сөз <b>ж</b> дыбысынан басталса, з дыбысы <b>ж</b> болып айтылады.<span class="ex">Оразжан — <span class="tr">[Оражжан]</span>, құз-жартас — <span class="tr">[құж-жартас]</span>, көз жазбау — <span class="tr">[көж жазбау]</span>, күз жақын — <span class="tr">[күж жақын]</span></span></li>
+    <li>Кейбір сөздерде қатар келген <b>екі дауыстының</b> соңғысының ықпалынан <b>алдыңғы дауысты</b> айтуда түсіп қалады.<span class="ex">Сарыөзек — <span class="tr">[Сарөзек]</span>, алтыатар — <span class="tr">[алтатар]</span>, қара ала — <span class="tr">[қарала]</span>, жеті ешкі — <span class="tr">[жетешкі]</span>, шеткі үй — <span class="tr">[шеткүй]</span></span></li>
+  </ol>
+
+  <h3 class="sub-h">Тоғыспалы ықпал: екі жақты әсер</h3>
+  <div class="mini">
+    <p>Қатар келген екі дауыссыз дыбыстың <b>бір-біріне қатар әсер етуі</b>. Мысалы, <i>Қазақбай</i> — <span class="tr">[Қазаппай]</span>: қ әсерімен б → п (ілгерінді), п әсерімен қ → п (кейінді).</p>
+  </div>
+
+  <div class="remember">
+    <h4>Есте сақта: ықпалдың бағытын қалай анықтаймыз?</h4>
+    <ul class="list">
+      <li>Қай дыбыс <b>өзгерді</b>? Оны <b>өзгерткен</b> дыбыс одан бұрын тұрса — <b>ілгерінді</b>, кейін тұрса — <b>кейінді</b>.</li>
+      <li><i>Көшсін → [көшшін]</i>: с өзгерді, оны алдыңғы ш өзгертті → ілгерінді. <i>Құрылысшы → [құрылышшы]</i>: с өзгерді, оны кейінгі ш өзгертті → кейінді.</li>
+      <li>Кейінді ықпалдың 1-ережесі (тілегі, құлағы, добы) <b>жазуда көрінеді</b>. Қалған өзгерістердің көбі тек айтуда болады.</li>
+      <li>Дыбыс үндестігі <b>дауыссыз дыбыстар</b> арасында орындалады. Тек 7-ереже (дауыстының түсуі) — дауыстылар арасындағы құбылыс.</li>
+    </ul>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s8a"></div>
+    <div class="task" data-task="s8b"></div>
+    <div class="task" data-task="s8c"></div>
+    <div class="task" data-task="s8d"></div>
+  </div>
+</section>
+
+<!-- §9 -->
+<section class="ch" id="orfografiya">
+  <div class="ch-head"><span class="num">§9</span><h2>Орфография. Жазылу ерекшеліктері</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p><b>Орфография</b> — «дұрыс жазамын» деген ұғымды білдіретін грек тілінен енген термин. Тілдегі сөздерді <b>дұрыс жазу ережелерінің жиынтығы</b>.</p>
+  </div>
+
+  <h3 class="sub-h">Айтылуы мен жазылуында айырмашылығы бар сөздер</h3>
+  <ol class="rules">
+    <li><b>Ы, і</b> әріптеріне аяқталған сөздерге тұйық етістіктің <b>-у</b> жұрнағы жалғанғанда, <b>ы, і түсіп қалады</b>.<span class="ex">оқы+у = оқу, тоқы+у = тоқу, қобалжы+у = қобалжу, бекі+у = беку, жекі+у = жеку, ірі+у = іру</span></li>
+    <li>Соңғы буынында <b>ы, і</b> бар сөздерге <b>тәуелдік жалғауының III жағы</b> жалғанғанда, түбірдегі ы, і түсіп қалады.<span class="ex">халық+ы = халқы, бөрік+і = бөркі, көрік+і = көркі</span></li>
+    <li><b>Й, ы, і</b> әріптеріне біткен сөздерге <b>-у</b> жұрнағы жалғанғанда, <b>ю</b> әрпі жазылады.<span class="ex">той+у = тою, жай+у = жаю, байы+у = баю, кейі+у = кею</span></li>
+    <li><b>Я, ю</b> — қосарлы дыбыстар (й+а, й+у). Олар қатысқан сөздердің айтылуы мен жазылуында, дыбыс саны мен әріп санында өзгеріс болады.<span class="ex">қоян — [қойан], аю — [айу], қою — [қойу]. Бірақ <b>айуан, хайуан, кейуана, диуана, миуа, қиуаз</b> сөздерінде ю әрпі жазылмайды.</span></li>
+    <li><b>И</b> төл сөздерде қосарлы <b>ый</b> және <b>ій</b> дыбыстарының қосындысы болып айтылады, бірақ жалаң <b>и</b> түрінде жазылады.<span class="ex">[жыйын] — жиын, [қыйын] — қиын, [тыйын] — тиын, [ыйық] — иық, [кійім] — киім, [кійіт] — киіт, [ійне] — ине</span></li>
+    <li>Қосарлы <b>ый</b> әріптері тек <b>сый, тый</b> түбірінен тараған сөздерде жазылады.<span class="ex">сый, сыйлық, сыйлау, сыйластық, сыйымды, сыйлы; тый, тыйым, тыйылу, тыю, тыяды, тыйдыр, тыйғызу, тыйыл</span></li>
+    <li><b>Йы, йі</b> әріптеріне аяқталған сөздерге көсемшенің <b>-й</b> жұрнағы жалғанғанда, соңғы <b>ый, ій</b> орнына <b>и</b> жазылады.<span class="ex">байы+й+ды = байиды, кейі+й+ді = кейиді, ұйы+й+ды = ұйиды</span></li>
+    <li>Кейбір сөздердің соңында <b>ә</b> айтылғанымен, <b>а</b> жазылады.<span class="ex">[Рәзинә] — Рәзина, [Жәмилә] — Жәмила, [Рәсуә] — Рәсуа, [жәйләу] — жайлау, [шәй] — шай, [кітәп] — кітап</span></li>
+  </ol>
+
+  <div class="two">
+    <div class="block">
+      <h3>Орфография қағидалары</h3>
+      <div class="tbl narrow"><table>
+        <thead><tr><th>Қағида</th><th>Мысал</th></tr></thead>
+        <tbody>
+          <tr><td><b>Морфологиялық</b>: сөз құрамы сақталып жазылады</td><td>Тұратбек (айтылуы [Тұратпек]), сөзсіз ([сөссіз])</td></tr>
+          <tr><td><b>Фонетикалық</b>: айтылуынша жазылады</td><td>тілегі, құлағы, добы</td></tr>
+          <tr><td><b>Тарихи-дәстүрлі</b></td><td>бүгін (бұл+күн), биыл (бұл+жыл)</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="block">
+      <h3>Бірге, бөлек, дефиспен</h3>
+      <ul class="list">
+        <li><b>Бірге:</b> біріккен сөздер — Екібастұз, итмұрын, ақсүйек.</li>
+        <li><b>Дефиспен:</b> қос сөздер — салт-дәстүр, аға-іні, азық-түлік.</li>
+        <li><b>Бөлек:</b> тіркес сөздер (самал жел), сұраулық <i>ма/ме</i>, шылау <i>да/де</i>: <i>Келді ме? Мен де бардым.</i></li>
+        <li>Жатыс септік <i>-да/-де</i> бірге жазылады: <i>менде</i> (менің қолымда).</li>
+      </ul>
+    </div>
+  </div>
+  <div class="remember">
+    <h4>Есте сақта</h4>
+    <ul class="list">
+      <li><b>Сый, тый</b> — ый жазылатын жалғыз түбірлер. Жиын, қиын, тиын, иық — и арқылы.</li>
+      <li><b>Айуан, хайуан, кейуана, диуана, миуа, қиуаз</b> — ю жазылмайтын 6 сөз.</li>
+      <li><i>Халқы, бөркі, көркі</i> — ы, і түседі. <i>Оқу, тоқу, іру</i> — ы, і түседі.</li>
+      <li><i>Да/де</i> шылауы бөлек жазылады. Тексеру: орнына «дағы» сөзін қой.</li>
+    </ul>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s9a"></div>
+    <div class="task" data-task="s9b"></div>
+    <div class="task" data-task="s9c"></div>
+    <div class="task" data-task="s9d"></div>
+  </div>
+</section>
+
+<!-- §10 -->
+<section class="ch" id="orfoepiya">
+  <div class="ch-head"><span class="num">§10</span><h2>Орфоэпия</h2></div>
+  <div class="def">
+    <span class="lbl">Анықтама</span>
+    <p><b>Орфоэпия</b> — «дұрыс айтамын» деген ұғымды білдіретін грек тілінен енген термин. Тілдегі сөздерді <b>дұрыс айту туралы ережелер жиынтығы</b>.</p>
+    <p class="small">Орфография «қалай жазамыз?» деген сұраққа, орфоэпия «қалай айтамыз?» деген сұраққа жауап береді.</p>
+  </div>
+  <div class="two">
+    <div class="block">
+      <h3>Орфография мен орфоэпия</h3>
+      <div class="tbl narrow"><table>
+        <thead><tr><th>Орфография (жазылуы)</th><th>Орфоэпия (айтылуы)</th></tr></thead>
+        <tbody>
+          <tr><td>Тұратбек</td><td class="m">[Тұратпек]</td></tr>
+          <tr><td>Ала қарға</td><td class="m">[Ала ғарға]</td></tr>
+          <tr><td>Шашса</td><td class="m">[Шашша]</td></tr>
+          <tr><td>Келе қал</td><td class="m">[Келеғал]</td></tr>
+          <tr><td>Ақбала</td><td class="m">[Ақпала]</td></tr>
+          <tr><td>Итбалық</td><td class="m">[Итпалық]</td></tr>
+          <tr><td>Көзсіз</td><td class="m">[Көссіз]</td></tr>
+          <tr><td>Боз жусан</td><td class="m">[Божжусан]</td></tr>
+          <tr><td>Тоқ адам</td><td class="m">[Тоғ адам]</td></tr>
+          <tr><td>Сары ала</td><td class="m">[Сарала]</td></tr>
+          <tr><td>Қара ешкі</td><td class="m">[Қарешкі]</td></tr>
+          <tr><td>Тұрарқожа</td><td class="m">[Тұрарғожа]</td></tr>
+          <tr><td>Көк ала</td><td class="m">[Көгала]</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="block">
+      <h3>Негізгі орфоэпиялық нормалар</h3>
+      <ul class="list">
+        <li>Ерін үндестігі: <i>өнер</i> <span class="tr">[өнөр]</span>, <i>жұмыс</i> <span class="tr">[жұмұс]</span>.</li>
+        <li>Сөз шегінде қ, к + дауысты → ғ, г: <i>тоқ адам</i> <span class="tr">[тоғ адам]</span>, <i>көк ала</i> <span class="tr">[көгала]</span>.</li>
+        <li>Қатаңнан кейін ұяң қатаңданады: <i>Ақбала</i> <span class="tr">[Ақпала]</span>, <i>Итбалық</i> <span class="tr">[Итпалық]</span>.</li>
+        <li>н + б, п → м: <i>сенбе</i> <span class="tr">[сембе]</span>.</li>
+        <li>н + к, қ, ғ, г → ң: <i>түнгі</i> <span class="tr">[түңгі]</span>.</li>
+        <li>с, з + ш → шш; ш + с → шш: <i>сөзшең</i> <span class="tr">[сөшшең]</span>, <i>шашса</i> <span class="tr">[шашша]</span>.</li>
+        <li>з + с → сс; з + ж → жж: <i>көзсіз</i> <span class="tr">[көссіз]</span>, <i>боз жусан</i> <span class="tr">[божжусан]</span>.</li>
+        <li>Екі дауысты қатар келсе, алдыңғысы түседі: <i>сары ала</i> <span class="tr">[сарала]</span>, <i>қара ешкі</i> <span class="tr">[қарешкі]</span>.</li>
+        <li>Сөз басындағы е, о, ө алдынан й, у қосылып айтылады: <i>ет</i> <span class="tr">[йет]</span>, <i>от</i> <span class="tr">[уот]</span>.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="remember">
+    <h4>Есте сақта</h4>
+    <ul class="list">
+      <li>Орфоэпиялық өзгерістер жазуда көрсетілмейді, тек айтылады. Айтылуы төртбұрышты жақшада беріледі: <span class="tr">[Тұратпек]</span>.</li>
+      <li>Орфоэпия нормаларының көбі — дыбыс үндестігінің нәтижесі. Олимпиадада ықпалдың түрін де атаған жөн.</li>
+      <li>Әріп бойынша оқу (мысалы, «Тұратбек» деп айту) — орфоэпиялық қате.</li>
+    </ul>
+  </div>
+  <div class="tasks">
+    <h3>Тапсырмалар</h3>
+    <div class="task" data-task="s10a"></div>
+    <div class="task" data-task="s10b"></div>
+    <div class="task" data-task="s10c"></div>
+  </div>
+</section>
+
+<!-- §11 -->
+<section class="ch" id="taldau">
+  <div class="ch-head"><span class="num">§11</span><h2>Фонетикалық талдау</h2></div>
+  <div class="def">
+    <span class="lbl">Талдау реті</span>
+    <p>1) Сөзді буынға бөл, буын санын және әр буынның түрін ата. 2) Екпінді белгіле. 3) Әріп пен дыбыс санын анықта. 4) Әр дыбысқа сипаттама бер. 5) Үндестік заңына қатысын көрсет. 6) Айтылуын жаз. 7) Тасымалдау жолдарын көрсет.</p>
+  </div>
+  <div class="two">
+    <article class="anal">
+      <header><h3>Жұмыс</h3><span>жұ-мыс · 2 буын</span></header>
+      <ol>
+        <li>Буындары: <b>жұ</b> — ашық, <b>мыс</b> — бітеу.</li>
+        <li>Екпін: жұ<span class="st">мыс</span>.</li>
+        <li>5 әріп, 5 дыбыс.</li>
+        <li><span class="c">ж</span> — ұяң; <span class="v">ұ</span> — жуан, қысаң, еріндік; <span class="c">м</span> — үнді; <span class="v">ы</span> — жуан, қысаң, езулік; <span class="c">с</span> — қатаң.</li>
+        <li>Буын үндестігі сақталған (жуан). Ерін үндестігі: ұ әсерімен ы → ұ.</li>
+        <li>Айтылуы: <span class="tr">[жұмұс]</span>.</li>
+        <li>Тасымалы: жұ-мыс.</li>
+      </ol>
+    </article>
+    <article class="anal">
+      <header><h3>Қиын</h3><span>қи-ын · 2 буын</span></header>
+      <ol>
+        <li>Айтылуы бойынша буындары: <span class="tr">[қый-ын]</span>: <b>қый</b> — бітеу, <b>ын</b> — тұйық.</li>
+        <li>Екпін: қи<span class="st">ын</span>.</li>
+        <li>4 әріп, 5 дыбыс: и әрпі [ый] деп айтылады.</li>
+        <li><span class="c">қ</span> — қатаң; <span class="v">и</span> [ый]; <span class="v">ы</span> — жуан, қысаң, езулік; <span class="c">н</span> — үнді.</li>
+        <li>Буын үндестігі сақталған (жуан).</li>
+        <li>Айтылуы: <span class="tr">[қыйын]</span>. Айтылуы мен жазылуында айырмашылығы бар сөз.</li>
+        <li>Тасымалы: қи-ын.</li>
+      </ol>
+    </article>
+    <article class="anal">
+      <header><h3>Тұратбек</h3><span>тұ-рат-бек · 3 буын</span></header>
+      <ol>
+        <li>Буындары: <b>тұ</b> — ашық, <b>рат</b> — бітеу, <b>бек</b> — бітеу.</li>
+        <li>Екпін: Тұрат<span class="st">бек</span>.</li>
+        <li>8 әріп, 8 дыбыс.</li>
+        <li><span class="c">т</span> — қатаң; <span class="v">ұ</span> — жуан, қысаң, еріндік; <span class="c">р</span> — үнді; <span class="v">а</span> — жуан, ашық, езулік; <span class="c">т</span> — қатаң; <span class="c">б</span> — ұяң; <span class="v">е</span> — жіңішке, ашық, езулік; <span class="c">к</span> — қатаң.</li>
+        <li>Біріккен сөз (адам аты), буын үндестігі сақталмаған. Ілгерінді ықпал: т әсерімен б → п.</li>
+        <li>Айтылуы: <span class="tr">[Тұратпек]</span>.</li>
+        <li>Тасымалы: Тұ-ратбек, Тұрат-бек.</li>
+      </ol>
+    </article>
+    <article class="anal">
+      <header><h3>Сарыөзек</h3><span>са-ры-ө-зек · 4 буын</span></header>
+      <ol>
+        <li>Буындары: <b>са</b> — ашық, <b>ры</b> — ашық, <b>ө</b> — жалаң ашық, <b>зек</b> — бітеу.</li>
+        <li>Екпін: Сарыө<span class="st">зек</span>.</li>
+        <li>8 әріп. Айтуда ы түсіп қалады, сондықтан 7 дыбыс айтылады.</li>
+        <li>Біріккен сөз (сары + өзек): буын үндестігі сақталмаған, ө екінші сыңарда келген.</li>
+        <li>Кейінді ықпалдың 7-ережесі: қатар келген ы мен ө-нің алдыңғысы түседі.</li>
+        <li>Айтылуы: <span class="tr">[Сарөзек]</span>.</li>
+        <li>Тасымалы: Са-рыөзек, Сары-өзек.</li>
+      </ol>
+    </article>
+  </div>
+  <div class="tasks">
+    <h3>Өз бетіңше талда</h3>
+    <div class="task" data-task="s11a"></div>
+    <details class="open">
+      <summary><span class="t-type">Толық талдау</span><span>«Көркем» сөзіне толық фонетикалық талдау жасаңыз.</span></summary>
+      <div class="ans">
+        <p><b>Буындары:</b> көр-кем: екеуі де бітеу. <b>Екпін:</b> көр<span class="st">кем</span>.</p>
+        <p><b>Әріп/дыбыс:</b> 6 әріп, 6 дыбыс. к — қатаң; ө — жіңішке, ашық, еріндік; р — үнді; к — қатаң; е — жіңішке, ашық, езулік; м — үнді.</p>
+        <p><b>Үндестік:</b> буын үндестігі сақталған (жіңішке). Ерін үндестігі: ө әсерімен е → ө.</p>
+        <p><b>Айтылуы:</b> <span class="tr">[көркөм]</span>. <b>Тасымалы:</b> көр-кем.</p>
+      </div>
+    </details>
+    <details class="open">
+      <summary><span class="t-type">Толық талдау</span><span>«Сөзшең» сөзіне толық фонетикалық талдау жасаңыз.</span></summary>
+      <div class="ans">
+        <p><b>Буындары:</b> сөз-шең: екеуі де бітеу. <b>Екпін:</b> сөз<span class="st">шең</span>.</p>
+        <p><b>Әріп/дыбыс:</b> 6 әріп, 6 дыбыс. с — қатаң; ө — жіңішке, ашық, еріндік; з — ұяң; ш — қатаң; е — жіңішке, ашық, езулік; ң — үнді.</p>
+        <p><b>Үндестік:</b> буын үндестігі сақталған (жіңішке). Кейінді ықпал: ш алдында з → ш.</p>
+        <p><b>Айтылуы:</b> <span class="tr">[сөшшең]</span>. <b>Тасымалы:</b> сөз-шең.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- §12 -->
+<section class="ch" id="olimp">
+  <div class="ch-head"><span class="num">§12</span><h2>Олимпиадалық тапсырмалар</h2></div>
+  <p style="max-width:44rem">Бұл тапсырмалар жауапты дайын ережеден емес, тілдік материалды талдаудан табуды талап етеді. Алдымен өз бетіңше шешіп, содан кейін жауапты ашыңыз.</p>
+  <div class="tasks">
+    <details class="open">
+      <summary><span class="t-type">Тапсырма · 1</span><span>Неге <i>тілек+і → тілегі, құлақ+ы → құлағы, доп+ы → добы</i>, бірақ <i>тілек+тер → тілектер</i>? Заңдылықты тұжырымдаңыз.</span></summary>
+      <div class="ans">
+        <p>Сөз соңындағы <b>қ, к, п</b> қатаңдары дауыстыдан басталатын қосымша жалғанғанда екі дауыстының ортасында қалып, ұяңданады: қ → ғ, к → г, п → б. Бұл — <b>кейінді ықпал</b>, ол жазуда да көрсетіледі.</p>
+        <p>Дауыссыздан басталатын қосымша жалғанғанда (-тер) қатаң дыбыс өзгермейді. Керісінше, қатаң дыбыс қосымшаны қатаңдатады (ілгерінді ықпал).</p>
+      </div>
+    </details>
+    <details class="open">
+      <summary><span class="t-type">Тапсырма · 2</span><span>Буын үндестігіне бағынбайтын сөздерді тауып, себебі бойынша топтаңыз: «Еңбекқор Майра емханадан шығып, Екібастұзға баратын пойызға мінді. Әуезовтің кітабын баласымен бірге оқыды.»</span></summary>
+      <div class="ans">
+        <p><b>Бір ғана түрі бар қосымша:</b> еңбек<b>қор</b>, ем<b>хана</b>, Әуез<b>ов</b>, бала<b>сымен</b> (-мен).</p>
+        <p><b>Біріккен сөз:</b> Екібастұз (екі + бас + тұз).</p>
+        <p><b>Кірме сөз:</b> кітап (араб тілінен).</p>
+        <p>Қалған сөздерде буын үндестігі сақталған.</p>
+      </div>
+    </details>
+    <details class="open">
+      <summary><span class="t-type">Тапсырма · 3</span><span>Мына сөздердің жазылуын түсіндіріңіз: <i>халқы, бөркі, оқу, іру, тою, жаю, байиды</i>.</span></summary>
+      <div class="ans">
+        <p><b>Халқы, бөркі</b>: соңғы буынында ы, і бар сөзге тәуелдік III жақ жалғанғанда ы, і түседі (халық+ы, бөрік+і).</p>
+        <p><b>Оқу, іру</b>: ы, і-ге біткен сөзге -у жұрнағы жалғанғанда ы, і түседі (оқы+у, ірі+у).</p>
+        <p><b>Тою, жаю</b>: й-ға біткен сөзге -у жалғанғанда ю жазылады (той+у, жай+у).</p>
+        <p><b>Байиды</b>: йы-ға біткен сөзге көсемшенің -й жұрнағы жалғанғанда ый орнына и жазылады (байы+й+ды).</p>
+      </div>
+    </details>
+    <details class="open">
+      <summary><span class="t-type">Тапсырма · 4</span><span>Неге <i>көшсін → [көшшін]</i> ілгерінді ықпал, ал <i>құрылысшы → [құрылышшы]</i> кейінді ықпал болады? Екеуінде де «шш» шықты емес пе?</span></summary>
+      <div class="ans">
+        <p>Нәтижесі бірдей болғанымен, әсердің бағыты әр түрлі.</p>
+        <p><b>Көшсін</b>: алдында <b>ш</b>, кейін <b>с</b> тұр. Өзгерген — кейінгі с, оны алдыңғы ш өзгертті → <b>ілгерінді</b>.</p>
+        <p><b>Құрылысшы</b>: алдында <b>с</b>, кейін <b>ш</b> тұр. Өзгерген — алдыңғы с, оны кейінгі ш өзгертті → <b>кейінді</b>.</p>
+      </div>
+    </details>
+    <details class="open">
+      <summary><span class="t-type">Тапсырма · 5</span><span>Транскрипциямен жазып, құбылысты атаңыз: <i>Байқоңыр, Жолдасбай, Сәрсенкүл, он бес, Оразжан, жеті ешкі</i>.</span></summary>
+      <div class="ans">
+        <p><span class="tr">[Байғоңыр]</span> — ілгерінді: үнді й-дан кейін қ → ғ.</p>
+        <p><span class="tr">[Жолдаспай]</span> — ілгерінді: қатаң с-дан кейін б → п.</p>
+        <p><span class="tr">[Сәрсеңкүл]</span> — кейінді: к алдында н → ң.</p>
+        <p><span class="tr">[ом бес]</span> — кейінді: б алдында н → м.</p>
+        <p><span class="tr">[Оражжан]</span> — кейінді: ж алдында з → ж.</p>
+        <p><span class="tr">[жетешкі]</span> — қатар келген екі дауыстының алдыңғысы (і) түседі.</p>
+      </div>
+    </details>
+    <details class="open">
+      <summary><span class="t-type">Тапсырма · 6</span><span>Ерін үндестігін ескеріп транскрипциялаңыз: <i>құрық, жүгері, көңіл, орын, көркем</i>. Ерін үндестігі қай дыбыстарға әсер етеді?</span></summary>
+      <div class="ans">
+        <p><span class="tr">[құрұқ]</span>, <span class="tr">[жүгөрү]</span>, <span class="tr">[көңүл]</span>, <span class="tr">[орұн]</span>, <span class="tr">[көркөм]</span>.</p>
+        <p>Алғашқы буындағы еріндік (о, ө, ұ, ү) кейінгі буындағы езулік дауыстыларды (ы, і, е) өзіне ұқсатып, еріндікке айналдырады: ы → ұ, і → ү, е → ө. Жазуда көрсетілмейді.</p>
+      </div>
+    </details>
+    <details class="open">
+      <summary><span class="t-type">Тапсырма · 7</span><span>Неге <i>тау, той, май</i> бітеу буын, ал <i>үй</i> тұйық буын? «Қарлығаштардың» сөзінің буындарының түрін анықтаңыз.</span></summary>
+      <div class="ans">
+        <p>Бұл сөздердегі <b>у, й</b> — дауыссыз. <i>Тау, той, май</i> дауыссыздан басталып, дауыссызға бітеді → бітеу. <i>Үй</i> дауыстыдан басталып, дауыссызға бітеді → тұйық.</p>
+        <p>Қар-лы-ғаш-тар-дың: қар — бітеу, лы — ашық, ғаш — бітеу, тар — бітеу, дың — бітеу. Бес дауысты бар, сондықтан бес буын.</p>
+      </div>
+    </details>
+    <details class="open">
+      <summary><span class="t-type">Тапсырма · 8</span><span>Неге <i>Қазақбай</i> деп жазып, <span class="tr">[Қазаппай]</span> деп айтамыз? Ықпалдың түрін анықтап, орфография мен орфоэпияның айырмасын түсіндіріңіз.</span></summary>
+      <div class="ans">
+        <p>Екі дыбыс бір-біріне қатар әсер етеді: қ әсерімен б → п (ілгерінді), п әсерімен қ → п (кейінді). Бұл — <b>тоғыспалы ықпал</b>.</p>
+        <p>Жазуда морфологиялық қағида бойынша сөз құрамы (Қазақ + бай) сақталады. Орфография сөздің құрамын, орфоэпия оның айтылуын көрсетеді.</p>
+      </div>
+    </details>
+    <details class="open">
+      <summary><span class="t-type">Тапсырма · 9</span><span>«Көрші», «жазба», «алма» сөздері екпінге қарай екі түрлі мағына береді. Мағыналарын ажыратып, әрқайсысына сөйлем құраңыз. Неге екпін ауысады?</span></summary>
+      <div class="ans">
+        <p>көр<span class="st">ші</span> — зат есім: <i>Біздің көршіміз мейірімді.</i> · <span class="st">көр</span>ші — бұйрық: <i>Мына суретті көрші!</i></p>
+        <p>жаз<span class="st">ба</span> — зат есім: <i>Жазба жұмысы аяқталды.</i> · <span class="st">жаз</span>ба — болымсыз бұйрық: <i>Кітапқа жазба!</i></p>
+        <p>ал<span class="st">ма</span> — жеміс: <i>Алма піседі.</i> · <span class="st">ал</span>ма — болымсыз бұйрық: <i>Бөтеннің затын алма!</i></p>
+        <p><b>Себебі:</b> етістіктегі <b>-ші</b> (тілек, өтініш жұрнағы) мен <b>-ба, -ма</b> (болымсыздық жұрнағы) екпін қабылдамайды, сондықтан екпін түбірде қалады. Зат есімде бұл буындар сөздің өз бөлігі, екпін әдеттегідей соңғы буынға түседі.</p>
+      </div>
+    </details>
+    <details class="open">
+      <summary><span class="t-type">Тапсырма · 10</span><span>«Тілектің әкесі ертең Астанадан келеді» сөйлеміндегі сөздердің орнын ауыстырып, ой екпінін үш түрлі сөзге түсіріңіз. Қандай заңдылық байқалады?</span></summary>
+      <div class="ans">
+        <p>Тілектің әкесі ертең <b>Астанадан</b> келеді. — Қайдан? Астанадан.</p>
+        <p>Ертең Астанадан Тілектің <b>әкесі</b> келеді. — Кім? Әкесі.</p>
+        <p>Тілектің әкесі Астанадан <b>ертең</b> келеді. — Қашан? Ертең.</p>
+        <p><b>Заңдылық:</b> ой екпіні түсетін сөз баяндауыштың (келеді) тікелей алдына орналасады. Қазақ тілінде ой екпіні сөз тәртібі арқылы беріледі.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- §13 -->
+<section class="ch" id="test">
+  <div class="ch-head"><span class="num">§13</span><h2>Қорытынды тест</h2></div>
+  <p>Барлық тақырып бойынша 22 сұрақ. Әр сұраққа бір рет жауап беруге болады, жауаптан кейін түсіндірме шығады.</p>
+  <div class="task" data-task="final"></div>
+</section>
+
+<footer>
+  <span>Қазақ тілі · Фонетика · Олимпиадаға дайындық материалы</span>
+  <span>8–11-сынып</span>
+</footer>
+
+</div>
+
+<script>
+var TASKS = {
+  s1a:{type:"mcq",title:"Тест",q:"Қай сөзде әріп саны мен дыбыс саны тең емес?",opts:["қала","қоян","мектеп","бала"],a:1,why:"«Қоян» — 4 әріп, 5 дыбыс [қойан]: я = й + а."},
+  s1b:{type:"match",title:"Сәйкестігін тап",q:"Жазылуын айтылуымен сәйкестендіріңіз.",pairs:[["жиын","[жыйын]"],["киім","[кійім]"],["ине","[ійне]"],["аю","[айу]"],["қою","[қойу]"],["иық","[ыйық]"]]},
+
+  s2a:{type:"sort",title:"Топтастыр",q:"Дауыстыларды тілдің қатысына қарай топтаңыз.",cats:["жуан","жіңішке"],items:[["а",0],["ә",1],["е",1],["о",0],["ө",1],["ұ",0],["ү",1],["ы",0],["і",1],["и",1],["э",1]]},
+  s2b:{type:"sort",title:"Топтастыр",q:"Дауыстыларды жақтың қатысына қарай топтаңыз.",cats:["ашық","қысаң"],items:[["а",0],["ұ",1],["е",0],["ы",1],["ө",0],["і",1],["о",0],["ү",1],["ә",0],["и",1],["э",0]]},
+  s2c:{type:"sort",title:"Топтастыр",q:"Сөздерді дауыстыларына қарай топтаңыз.",cats:["тек жуан","тек жіңішке","аралас"],items:[["арыстан",0],["өмір",1],["емтихан",2],["тасбақа",0],["көктем",1],["синтаксис",2],["қараторғай",0],["мереке",1],["Екібастұз",2],["дауылпаз",0],["күміс",1],["көзқарас",2]]},
+  s2d:{type:"sort",title:"Топтастыр",q:"Сөз қандай дауыстылардан құралған?",cats:["тек ашық","тек қысаң","тек еріндік","тек езулік"],items:[["орман",0],["ыдыс",1],["қосу",2],["ақыл",3],["өлең",0],["ірімшік",1],["күлу",2],["әдемі",3],["бақыт",0],["киік",1],["ұлу",2],["еңбекшіл",3]]},
+  s2e:{type:"match",title:"Сәйкестігін тап",q:"Ерін үндестігі: жазылуын айтылуымен сәйкестендіріңіз.",pairs:[["құрық","[құрұқ]"],["жүгері","[жүгөрү]"],["жұмыс","[жұмұс]"],["көңіл","[көңүл]"],["көркем","[көркөм]"],["өнер","[өнөр]"],["орын","[орұн]"]]},
+  s2f:{type:"sort",title:"Топтастыр",q:"Ә, о, ө, ұ, ү екінші буында неге келген? Сөздің түрін анықтаңыз.",cats:["кірме сөз","қос сөз","біріккен сөз"],items:[["куә",0],["әп-әдемі",1],["Ақтөбе",2],["күмән",0],["той-томалақ",1],["Аягөз",2],["мазмұн",0],["дүние-мүлік",1],["Алакөл",2],["мәжбүр",0],["күндіз-түні",1],["Сарыөзек",2]]},
+  s2g:{type:"mcq",title:"Тест",q:"Буын талғамайтын дауыстылар қатары:",opts:["ә, о, ө, ұ, ү","а, е, ы, і","а, о, ұ, ы","и, у, э"],a:1,why:"А, е, ы, і сөздің барлық буынында жазыла береді: балалық, береке, ынтымақ, ертегіші."},
+
+  s3a:{type:"sort",title:"Топтастыр",q:"Дауыссыздарды үнді, ұяң, қатаң деп топтаңыз.",cats:["үнді","ұяң","қатаң"],items:[["п",2],["б",1],["м",0],["қ",2],["ғ",1],["ң",0],["с",2],["з",1],["л",0],["ш",2],["ж",1],["р",0],["т",2],["д",1],["й",0]]},
+  s3b:{type:"match",title:"Сәйкестігін тап",q:"Қатаң дауыссызды өзінің ұяң жұбымен сәйкестендіріңіз.",pairs:[["п","б"],["қ","ғ"],["к","г"],["т","д"],["с","з"],["ш","ж"],["ф","в"]]},
+
+  s4a:{type:"input",title:"Буынға бөл",q:"Сөздерді буынға бөліп, сызықшамен жазыңыз (мысалы: ба-ла).",items:[["қарлығаштардың",["қар-лы-ғаш-тар-дың"]],["береке",["бе-ре-ке"]],["шағала",["ша-ға-ла"]],["жолдастық",["жол-дас-тық"]],["мазмұн",["маз-мұн"]],["үкі",["ү-кі"]],["дүлдүл",["дүл-дүл"]]]},
+  s4b:{type:"sort",title:"Топтастыр",q:"Буынның түрін анықтаңыз.",cats:["жалаң ашық","ашық","тұйық","бітеу"],items:[["ә (ә-же)",0],["ба",1],["айт",2],["бұлт",3],["ұ (ұ-лы)",0],["же",1],["ант",2],["той",3],["ла",1],["үй",2],["тау",3],["ән",2],["қант",3],["ға",1]]},
+  s4c:{type:"mcq",title:"Тест",q:"«Қарлығаштардың» сөзінде неше буын бар?",opts:["3","4","5","6"],a:2,why:"Сөзде бес дауысты дыбыс бар (а, ы, а, а, ы), сондықтан бес буын: қар-лы-ғаш-тар-дың."},
+  s4d:{type:"mcq",title:"Тест",q:"Барлық буыны бітеу болатын сөз:",opts:["шағала","жолдастық","ата","береке"],a:1,why:"Жол-дас-тық: үш буын да дауыссыздан басталып, дауыссызға бітеді."},
+
+  s5a:{type:"stress",title:"Екпінді тап",q:"Екпін түсетін буынды басыңыз.",words:[[["ба","ла","лар","ға"],3,"балаларға","Екпін соңғы буынға түседі және қосымшамен бірге жылжиды."],[["о","қу","шы","мын"],2,"оқушымын","Жіктік жалғауына екпін түспейді."],[["ба","ра","мыз"],1,"барамыз","Жіктік жалғауына екпін түспейді."],[["о","тыр","ма"],1,"отырма!","Болымсыз -ма жұрнағына екпін түспейді."],[["жаз","ба"],0,"Жазба! (бұйрық)","Болымсыз -ба жұрнағына екпін түспейді."],[["жаз","ба"],1,"жазба (зат есім)","Зат есімде екпін соңғы буында."],[["мұз","дай"],0,"мұздай","Теңеу -дай жұрнағына екпін түспейді."],[["тас","тай"],0,"тастай","Теңеу -тай жұрнағына екпін түспейді."],[["айт","шы"],0,"айтшы","Тілек, өтініш -шы жұрнағына екпін түспейді."],[["көр","ші"],0,"Көрші! (қарашы)","Тілек -ші жұрнағына екпін түспейді."],[["көр","ші"],1,"көрші (адам)","Зат есімде екпін соңғы буында."],[["кел","ді","ме"],1,"келді ме?","Ме шылауына екпін түспейді."]]},
+  s5b:{type:"sort",title:"Топтастыр",q:"Екпіннің түрін анықтаңыз.",cats:["сөз екпіні","ой екпіні","тіркес екпіні","дыбыс екпіні"],items:[["көктем",0],["Тілектің әкесі ертең АСТАНАДАН келеді",1],["ұзын бойлы",2],["тамаша-а-а!",3],["мұншалық",0],["Ертең Астанадан Тілектің ӘКЕСІ келеді",1],["құлақ қой",2],["отыр-р-р!",3],["байқамапты",0],["ар-ұждан",2],["ж-жап есікті!",3],["төбе шашы тік тұрды",2]]},
+  s5c:{type:"match",title:"Сәйкестігін тап",q:"Сөздегі екпін түспейтін бөлікті оның түрімен сәйкестендіріңіз.",pairs:[["оқушымын","жіктік жалғауы"],["келме","болымсыздық жұрнағы"],["мұздай","теңеу жұрнағы"],["айтшы","тілек, өтініш жұрнағы"],["бала ғой","шылау"]]},
+  s5d:{type:"mcq",title:"Тест",q:"Ренжу, қынжылу сезімін білдіргенде дыбыс екпіні қай дыбысқа түседі?",opts:["дауысты дыбысқа","дауыссыз дыбысқа","соңғы буынға","бірінші буынға"],a:1,why:"Ренжігенде — дауыссызға: отыр-р-р, тоқт-тат. Қуанғанда — дауыстыға: тамаша-а, жара-а-йсың."},
+  s5e:{type:"mcq",title:"Тест",q:"«Тілектің әкесі Астанадан ЕРТЕҢ келеді» сөйлеміндегі ерекшеленген сөздің екпіні:",opts:["сөз екпіні","ой екпіні","тіркес екпіні","дыбыс екпіні"],a:1,why:"Ой екпіні сөйлемдегі бір сөзді оқшаулап, даралап айтады. Ол сөз баяндауыштың (келеді) алдында тұр."},
+
+  s6a:{type:"sort",title:"Топтастыр",q:"Сөзді тасымалдауға бола ма?",cats:["болады","болмайды"],items:[["шағала",0],["ата",1],["БҰҰ",1],["береке",0],["ұлы",1],["15 кг",1],["салт-дәстүр",0],["ағаш",1],["жолдастық",0],["бұлт",1]]},
+  s6b:{type:"mcq",title:"Тест",q:"«Қарлығаштардың» сөзінің дұрыс тасымалданған нұсқасы:",opts:["қа-рлығаштардың","қарл-ығаштардың","қарлығаш-тардың","қарлығаштард-ың"],a:2,why:"Тасымал буын жігі бойынша жасалады: қар-лы-ғаш-тар-дың."},
+
+  s7a:{type:"match",title:"Сәйкестігін тап",q:"Сөзді ондағы буын үндестігіне бағынбайтын қосымшамен сәйкестендіріңіз.",pairs:[["еңбекқор","-қор"],["өнерпаз","-паз"],["дәріхана","-хана"],["қаламгер","-гер"],["пайдакүнем","-күнем"],["бейтарап","бей-"],["Мақсаттікі","-тікі"],["жолдаспен","-пен"]]},
+  s7b:{type:"sort",title:"Топтастыр",q:"Буын үндестігіне бағынбайтын күрделі сөздердің түрін анықтаңыз.",cats:["қос сөз","біріккен сөз","тіркес сөз"],items:[["салт-дәстүр",0],["Екібастұз",1],["самал жел",2],["азық-түлік",0],["итмұрын",1],["келе жатыр",2],["аға-іні",0],["көкқұтан",1],["алтыншы үй",2],["қыз-келіншек",0],["ақсүйек",1],["жақын жер",2]]},
+  s7c:{type:"sort",title:"Қосымшаны таңда",q:"Сөзге көптік жалғауының дұрыс түрін таңдаңыз.",cats:["-лар","-лер","-дар","-дер","-тар","-тер"],items:[["шағала",0],["тілек",5],["жұлдыз",2],["үй",1],["көл",3],["тас",4],["егін",3],["тау",0],["құлақ",4],["сөз",3]]},
+  s7d:{type:"mcq",title:"Тест",q:"«Сингармонизм» термині нені білдіреді және қай тілден енген?",opts:["«ұқсату», латын","«бірге үндесу», грек","«дұрыс жазу», грек","«дұрыс айту», латын"],a:1,why:"Сингармонизм — грек тілінен: syn «бірге», harmonia «байланысу, үндесу». Ол — буын үндестігінің екінші атауы."},
+
+  s8a:{type:"sort",title:"Топтастыр",q:"Ықпалдың түрін анықтаңыз.",cats:["ілгерінді","кейінді"],items:[["тас+ты",0],["тілек+і → тілегі",1],["жұлдыз+ға",0],["сенбе → [сембе]",1],["көшсін → [көшшін]",0],["түнгі → [түңгі]",1],["Меңдіқыз → [Меңдіғыз]",0],["құрылысшы → [құрылышшы]",1],["Тұратбек → [Тұратпек]",0],["сөзсіз → [сөссіз]",1],["Байқоңыр → [Байғоңыр]",0],["Оразжан → [Оражжан]",1]]},
+  s8b:{type:"match",title:"Сәйкестігін тап",q:"Кейінді ықпал: жазылуын айтылуымен сәйкестендіріңіз.",pairs:[["Жанпейіс","[Жампейіс]"],["Дүйсенғали","[Дүйсеңғали]"],["Бозшағыл","[Бошшағыл]"],["сазсырнай","[сассырнай]"],["көз жазбау","[көж жазбау]"],["сәрсенбі","[сәрсембі]"],["Тасшайнар","[Ташшайнар]"]]},
+  s8c:{type:"match",title:"Сәйкестігін тап",q:"Дауыстының түсуі: жазылуын айтылуымен сәйкестендіріңіз.",pairs:[["Сарыөзек","[Сарөзек]"],["алтыатар","[алтатар]"],["қара ала","[қарала]"],["жеті ешкі","[жетешкі]"],["шеткі үй","[шеткүй]"]]},
+  s8d:{type:"mcq",title:"Тест",q:"«Ассимиляция» термині қай тілден енген және нені білдіреді?",opts:["грек, «бірге үндесу»","латын, «ұқсату»","араб, «өзгерту»","грек, «дұрыс айту»"],a:1,why:"Ассимиляция — латынның assimilatio «ұқсату» сөзінен. Дыбыс үндестігінің екінші атауы."},
+
+  s9a:{type:"input",title:"Жаз",q:"Қосылған сөздің дұрыс жазылуын жазыңыз.",items:[["оқы + у",["оқу"]],["ірі + у",["іру"]],["халық + ы",["халқы"]],["бөрік + і",["бөркі"]],["той + у",["тою"]],["жай + у",["жаю"]],["байы + й + ды",["байиды"]],["ұйы + й + ды",["ұйиды"]]]},
+  s9b:{type:"sort",title:"Топтастыр",q:"Сөз қалай жазылады?",cats:["ый арқылы","и арқылы"],items:[["с__лық",0],["ж__н",1],["т__ым",0],["қ__н",1],["с__ластық",0],["т__н (ақша)",1],["т__ылу",0],["__ық",1]]},
+  s9c:{type:"mcq",title:"Тест",q:"Қай сөзде ю әрпі жазылмайды?",opts:["қоян","аю","айуан","қою"],a:2,why:"Айуан, хайуан, кейуана, диуана, миуа, қиуаз сөздерінде ю жазылмайды."},
+  s9d:{type:"sort",title:"Топтастыр",q:"Қалай жазылады?",cats:["бірге","дефиспен","бөлек"],items:[["салт + дәстүр",1],["Екі + бас + тұз",0],["самал + жел",2],["аға + іні",1],["ит + мұрын",0],["келді + ме",2],["азық + түлік",1],["ақ + сүйек",0],["мен + де (мен дағы)",2]]},
+
+  s10a:{type:"match",title:"Сәйкестігін тап",q:"Орфографиясын орфоэпиясымен сәйкестендіріңіз (1-бөлім).",pairs:[["Тұратбек","[Тұратпек]"],["Ала қарға","[Ала ғарға]"],["Шашса","[Шашша]"],["Келе қал","[Келеғал]"],["Ақбала","[Ақпала]"],["Итбалық","[Итпалық]"],["Көзсіз","[Көссіз]"]]},
+  s10b:{type:"match",title:"Сәйкестігін тап",q:"Орфографиясын орфоэпиясымен сәйкестендіріңіз (2-бөлім).",pairs:[["Боз жусан","[Божжусан]"],["Тоқ адам","[Тоғ адам]"],["Сары ала","[Сарала]"],["Қара ешкі","[Қарешкі]"],["Тұрарқожа","[Тұрарғожа]"],["Көк ала","[Көгала]"]]},
+  s10c:{type:"mcq",title:"Тест",q:"Орфоэпия нормасына сай айтылған нұсқа:",opts:["Итбалық [Итбалық]","Боз жусан [Божжусан]","Келе қал [Келе қал]","Өнер [Өнер]"],a:1,why:"з + ж → [жж]. Қалғандарының дұрыс айтылуы: [Итпалық], [Келеғал], [Өнөр]."},
+
+  s11a:{type:"input",title:"Талдау",q:"«Тұрарқожа» сөзі бойынша сұрақтарға жауап беріңіз.",items:[["буын саны",["4","төрт"]],["бірінші буын түрі",["ашық"]],["екпінді буын",["жа"]],["айтылуы",["тұрарғожа","[тұрарғожа]"]],["ықпал түрі",["ілгерінді","ілгерінді ықпал"]]]},
+
+  final:{type:"quiz",items:[
+    {q:"Қазақ тілінде дауысты дыбыстар саны:",opts:["9","10","12","15"],a:2,why:"12 дауысты: а, ә, о, ө, е, ы, і, ұ, ү, и, э, (у)."},
+    {q:"Жуан дауыстылар қалай жасалады?",opts:["Тіл ұшы ілгері созылады","Тіл артқа тартылып, тіл үсті дөңестенеді","Жақ кең ашылады","Ерін дөңгеленеді"],a:1,why:"Жіңішке дауыстылар тіл ұшының ілгері созылуы арқылы жасалады."},
+    {q:"Тек қысаң дауыстылардан тұратын сөз:",opts:["орман","ыдыс","әке","бақыт"],a:1,why:"Ыдыс — ы, ы (қысаң). Қалғандары — тек ашық дауыстылар."},
+    {q:"Тек еріндік дауыстылардан тұратын сөз:",opts:["ақыл","күлу","әдемі","егінші"],a:1,why:"Күлу — ү, у (еріндік)."},
+    {q:"Буын талғайтын дауыстылар:",opts:["а, е, ы, і","ә, о, ө, ұ, ү","и, у, э","а, о, ы, ұ"],a:1,why:"Олар негізінен бірінші буында жазылады."},
+    {q:"«Жұмыс» сөзінің айтылуы:",opts:["[жұмыс]","[жұмұс]","[жүмүс]","[жомос]"],a:1,why:"Ерін үндестігі: ұ әсерімен ы → ұ."},
+    {q:"Жалаң ашық буын:",opts:["ба (ба-ла)","ә (ә-же)","айт","бұлт"],a:1,why:"Бір ғана дауысты дыбыстан құралған буын."},
+    {q:"Бітеу буын:",opts:["үй","ант","тау","ә"],a:2,why:"Тау: т — дауыссыз, у — дауыссыз. Дауыссыздан басталып, дауыссызға бітеді."},
+    {q:"«Қарлығаштардың» сөзіндегі буын саны:",opts:["4","5","6","7"],a:1,why:"Бес дауысты, бес буын."},
+    {q:"Екпін неше түрге бөлінеді?",opts:["2","3","4","5"],a:2,why:"Сөз екпіні, ой екпіні, тіркес екпіні, дыбыс екпіні."},
+    {q:"Екпін түспейтін жұрнақ:",opts:["көптік -лар","теңеу -дай","барыс -ға","тәуелдік -ым"],a:1,why:"Теңеу, ұқсату жұрнақтары екпін қабылдамайды: мұ́здай, та́стай."},
+    {q:"Үндестік заңының түрлері:",opts:["ілгерінді, кейінді","буын үндестігі, дыбыс үндестігі","ашық, қысаң","орфография, орфоэпия"],a:1,why:"Буын үндестігі — дауыстылар, дыбыс үндестігі — дауыссыздар арасында."},
+    {q:"Буын үндестігіне бағынбайтын қосымша:",opts:["-лар/-лер","-хана","-ға/-ге","-ды/-ді"],a:1,why:"Емхана, дәріхана — -хана бір ғана түрде жалғанады."},
+    {q:"Біріккен сөз:",opts:["салт-дәстүр","самал жел","Есекқырған","азық-түлік"],a:2,why:"Салт-дәстүр, азық-түлік — қос сөз, самал жел — тіркес сөз."},
+    {q:"«Ассимиляция» сөзінің мағынасы:",opts:["үндесу","ұқсату","дұрыс айту","бірге"],a:1,why:"Латынның assimilatio «ұқсату» сөзінен."},
+    {q:"«Тұратбек → [Тұратпек]» — ықпалдың түрі:",opts:["ілгерінді","кейінді","тоғыспалы","ерін үндестігі"],a:0,why:"Алдыңғы қатаң т кейінгі ұяң б-ны қатаңдатты."},
+    {q:"«Сенбе → [сембе]» — ықпалдың түрі:",opts:["ілгерінді","кейінді","тоғыспалы","дауыстының түсуі"],a:1,why:"Кейінгі б алдыңғы н-ды м-ға айналдырды."},
+    {q:"«Сары ала → [сарала]» құбылысы:",opts:["ерін үндестігі","қатаңдау","қатар келген екі дауыстының алдыңғысы түседі","н → ң"],a:2,why:"Екі дауыстының соңғысының ықпалынан алдыңғы дауысты түседі."},
+    {q:"Халық+ы сөзінің дұрыс жазылуы:",opts:["халықы","халқы","халығы","халкы"],a:1,why:"Соңғы буында ы бар сөзге тәуелдік III жақ жалғанғанда ы түседі."},
+    {q:"Ый әрпі жазылатын сөз:",opts:["жиын","қиын","сыйлық","тиын"],a:2,why:"Ый тек сый, тый түбірлерінде жазылады."},
+    {q:"Ю әрпі жазылмайтын сөз:",opts:["тою","айуан","жаю","аю"],a:1,why:"Айуан, хайуан, кейуана, диуана, миуа, қиуаз."},
+    {q:"Орфоэпия дегеніміз:",opts:["дұрыс жазу ережелерінің жиынтығы","дұрыс айту туралы ережелер жиынтығы","буынға бөлу","тасымал ережесі"],a:1,why:"Грек тілінен: «дұрыс айтамын»."}
+  ]}
+};
+
+(function(){
+  function el(tag, cls, text){var e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e;}
+  function head(t, title, q){var h=el("div","t-head"); h.appendChild(el("span","t-type",title)); h.appendChild(el("p","t-q",q)); t.appendChild(h);}
+  function seeded(n){var s=n*9301+49297; return function(){s=(s*9301+49297)%233280; return s/233280;};}
+  function shuffle(arr, seed){var r=seeded(seed), a=arr.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(r()*(i+1)); var tmp=a[i];a[i]=a[j];a[j]=tmp;} return a;}
+  function norm(s){return s.toLowerCase().replace(/[‐-―−·.\s]+/g,"-").replace(/[\[\]]/g,"").replace(/-+/g,"-").replace(/^-|-$/g,"");}
+
+  function mcq(box, d, onDone){
+    var opts=el("div","opts"), why=el("p","why"); why.hidden=true; var done=false;
+    d.opts.forEach(function(o,i){
+      var b=el("button","btn",o); b.type="button";
+      b.addEventListener("click",function(){
+        if(done) return; done=true;
+        [].forEach.call(opts.children,function(c,k){c.disabled=true; if(k===d.a) c.classList.add("ok");});
+        if(i!==d.a) b.classList.add("bad");
+        why.hidden=false; why.textContent=(i===d.a?"Дұрыс. ":"Қате. ")+d.why;
+        if(onDone) onDone(i===d.a);
+      });
+      opts.appendChild(b);
+    });
+    box.appendChild(opts); box.appendChild(why);
+  }
+
+  var render={
+    mcq:function(t,d){head(t,d.title,d.q); mcq(t,d);},
+    sort:function(t,d){
+      head(t,d.title,d.q);
+      var list=el("div"); var sel={};
+      d.items.forEach(function(it,i){
+        var row=el("div","srow"); var lab=el("span","item",it[0]); var ch=el("div","choices");
+        d.cats.forEach(function(c,k){var b=el("button","btn",c); b.type="button"; b.addEventListener("click",function(){sel[i]=k; [].forEach.call(ch.children,function(x,m){x.classList.toggle("sel",m===k); x.classList.remove("ok","bad");}); lab.classList.remove("okm","badm");}); ch.appendChild(b);});
+        row.appendChild(lab); row.appendChild(ch); list.appendChild(row);
+      });
+      t.appendChild(list);
+      var act=el("div","actions"), chk=el("button","btn primary","Тексеру"), rst=el("button","btn ghost","Қайта бастау"), res=el("span","res");
+      chk.type=rst.type="button";
+      chk.addEventListener("click",function(){
+        var ok=0;
+        [].forEach.call(list.children,function(row,i){
+          var lab=row.firstChild, btns=row.lastChild.children, right=d.items[i][1];
+          lab.classList.remove("okm","badm");
+          [].forEach.call(btns,function(b){b.classList.remove("ok","bad");});
+          if(sel[i]===right){ok++; lab.classList.add("okm"); btns[right].classList.remove("sel"); btns[right].classList.add("ok");}
+          else {lab.classList.add("badm"); if(sel[i]!=null){btns[sel[i]].classList.remove("sel"); btns[sel[i]].classList.add("bad");} btns[right].classList.add("ok");}
+        });
+        res.textContent="Нәтиже: "+ok+" / "+d.items.length; res.className="res "+(ok===d.items.length?"good":"warn");
+      });
+      rst.addEventListener("click",function(){sel={}; res.textContent=""; [].forEach.call(list.children,function(row){row.firstChild.classList.remove("okm","badm"); [].forEach.call(row.lastChild.children,function(b){b.classList.remove("ok","bad","sel");});});});
+      act.appendChild(chk); act.appendChild(rst); act.appendChild(res); t.appendChild(act);
+    },
+    match:function(t,d,id){
+      head(t,d.title,d.q+" Алдымен сол жақтан, сосын оң жақтан таңдаңыз.");
+      var wrap=el("div","match"), L=el("div","col"), R=el("div","col"); var cur=null, found=0, miss=0;
+      var res=el("span","res");
+      d.pairs.forEach(function(p,i){var b=el("button","btn",p[0]); b.type="button"; b.addEventListener("click",function(){if(b.disabled) return; [].forEach.call(L.children,function(x){x.classList.remove("sel");}); b.classList.add("sel"); cur=i;}); L.appendChild(b);});
+      var order=shuffle(d.pairs.map(function(_,i){return i;}), id.length*7+d.pairs.length*3+1);
+      order.forEach(function(i){var b=el("button","btn",d.pairs[i][1]); b.type="button"; b.addEventListener("click",function(){
+        if(b.disabled) return;
+        if(cur===null){res.textContent="Алдымен сол жақтағы бағаннан таңдаңыз."; res.className="res"; return;}
+        if(cur===i){found++; var lb=L.children[i]; lb.classList.remove("sel"); lb.classList.add("ok"); b.classList.add("ok"); lb.disabled=b.disabled=true;
+          lb.insertBefore(el("span","n",found+"."),lb.firstChild); b.insertBefore(el("span","n",found+"."),b.firstChild); cur=null;
+          res.textContent= found===d.pairs.length ? "Барлығы табылды! Қате саны: "+miss : "Табылды: "+found+" / "+d.pairs.length;
+          res.className="res "+(found===d.pairs.length&&miss===0?"good":"");
+        } else {miss++; b.classList.add("bad"); setTimeout(function(){b.classList.remove("bad");},600); res.textContent="Сәйкес емес. Қате саны: "+miss; res.className="res warn";}
+      }); R.appendChild(b);});
+      wrap.appendChild(L); wrap.appendChild(R); t.appendChild(wrap);
+      var act=el("div","actions"), rst=el("button","btn ghost","Қайта бастау"); rst.type="button";
+      rst.addEventListener("click",function(){t.innerHTML=""; render.match(t,d,id);});
+      act.appendChild(rst); act.appendChild(res); t.appendChild(act);
+    },
+    input:function(t,d,id){
+      head(t,d.title,d.q);
+      var rows=[];
+      d.items.forEach(function(it,i){
+        var r=el("div","irow"); var p=el("span","p",it[0]); var inp=document.createElement("input"); inp.type="text"; inp.id="in-"+id+"-"+i; inp.setAttribute("aria-label",it[0]); inp.autocomplete="off"; inp.spellcheck=false;
+        var fix=el("span","fix"); r.appendChild(p); r.appendChild(inp); r.appendChild(fix); t.appendChild(r); rows.push([inp,fix,it[1]]);
+      });
+      var act=el("div","actions"), chk=el("button","btn primary","Тексеру"), show=el("button","btn ghost","Жауабын көрсету"), res=el("span","res"); chk.type=show.type="button";
+      chk.addEventListener("click",function(){var ok=0; rows.forEach(function(r){var v=norm(r[0].value); var good=r[2].some(function(a){return norm(a)===v;}); r[0].classList.toggle("ok",good); r[0].classList.toggle("bad",!good); r[1].textContent=good?"✓":""; if(good) ok++;}); res.textContent="Нәтиже: "+ok+" / "+rows.length; res.className="res "+(ok===rows.length?"good":"warn");});
+      show.addEventListener("click",function(){rows.forEach(function(r){r[1].textContent=r[2][0];});});
+      act.appendChild(chk); act.appendChild(show); act.appendChild(res); t.appendChild(act);
+    },
+    stress:function(t,d){
+      head(t,d.title,d.q);
+      var score=0, answered=0, res=el("span","res");
+      d.words.forEach(function(w){
+        var row=el("div","wrow"), tag=el("span","tag",w[2]), sy=el("div","sy"), note=el("p","note"); note.hidden=true; var done=false;
+        w[0].forEach(function(s,k){var b=el("button","btn",s); b.type="button"; b.setAttribute("aria-label",w[2]+": "+s); b.addEventListener("click",function(){
+          if(done) return; done=true; answered++;
+          [].forEach.call(sy.children,function(x,m){x.disabled=true; if(m===w[1]) x.classList.add("ok");});
+          if(k!==w[1]) b.classList.add("bad"); else score++;
+          note.hidden=false; note.textContent=(k===w[1]?"Дұрыс. ":"Қате. ")+w[3];
+          res.textContent="Нәтиже: "+score+" / "+d.words.length; res.className="res "+(answered===d.words.length?(score===d.words.length?"good":"warn"):"");
+        }); sy.appendChild(b);});
+        row.appendChild(tag); row.appendChild(sy); row.appendChild(note); t.appendChild(row);
+      });
+      var act=el("div","actions"), rst=el("button","btn ghost","Қайта бастау"); rst.type="button"; rst.addEventListener("click",function(){t.innerHTML=""; render.stress(t,d);});
+      act.appendChild(rst); act.appendChild(res); t.appendChild(act);
+    },
+    quiz:function(t,d){
+      var bar=el("div","qbar"), m=el("div","meter"), fill=el("i"), out=el("span","res","0 / "+d.items.length);
+      m.appendChild(fill); bar.appendChild(m); bar.appendChild(out); t.appendChild(bar);
+      var right=0, done=0, verdict=el("p","why"); verdict.hidden=true;
+      d.items.forEach(function(q,i){
+        var item=el("div","qitem"); item.appendChild(el("p","t-q",(i+1)+". "+q.q));
+        mcq(item,q,function(ok){done++; if(ok) right++; fill.style.width=(done/d.items.length*100)+"%"; out.textContent=right+" / "+d.items.length;
+          if(done===d.items.length){verdict.hidden=false; verdict.textContent= right>=17?"Өте жақсы! Фонетика тарауын жақсы меңгергенсіз.": right>=12?"Жақсы нәтиже. Қате кеткен тақырыптарды қайталаңыз.":"Тақырыптарды қайта оқып, тапсырмаларды орындап шығыңыз.";}
+        });
+        t.appendChild(item);
+      });
+      t.appendChild(verdict);
+      var act=el("div","actions"), rst=el("button","btn ghost","Тестті қайта бастау"); rst.type="button"; rst.addEventListener("click",function(){t.innerHTML=""; render.quiz(t,d);});
+      act.appendChild(rst); t.appendChild(act);
+    }
+  };
+  document.querySelectorAll("[data-task]").forEach(function(t){var id=t.getAttribute("data-task"), d=TASKS[id]; if(d) render[d.type](t,d,id);});
+})();
+</script>
+
+</body></html>
